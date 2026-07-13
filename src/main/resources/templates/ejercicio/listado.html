@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container mt-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h2 class="titulo">
+
+                        Catálogo de Ejercicios
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Explora los ejercicios disponibles y encuentra el entrenamiento ideal.
+
+                    </p>
+
+                </div>
+
+                <a th:href="@{/ejercicio/nuevo}"
+                   class="btn btn-success">
+
+                    Nuevo Ejercicio
+
+                </a>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4"
+                     th:each="e : ${ejercicios}">
+
+                    <div class="card shadow h-100">
+
+                        <img th:src="${e.imagen}"
+                             class="card-img-top"
+                             style="height:240px;object-fit:cover;">
+
+                        <div class="card-body">
+
+                            <h4 class="card-title">
+
+                                [[${e.nombre}]]
+
+                            </h4>
+
+                            <span class="badge bg-primary">
+
+                                [[${e.grupoMuscular}]]
+
+                            </span>
+
+                            <span class="badge bg-success">
+
+                                [[${e.nivel}]]
+
+                            </span>
+
+                            <hr>
+
+                            <p>
+
+                                [[${e.descripcion}]]
+
+                            </p>
+
+                            <div class="row text-center mt-3">
+
+                                <div class="col">
+
+                                    <h5>
+
+                                        [[${e.series}]]
+
+                                    </h5>
+
+                                    <small>
+
+                                        Series
+
+                                    </small>
+
+                                </div>
+
+                                <div class="col">
+
+                                    <h5>
+
+                                        [[${e.repeticiones}]]
+
+                                    </h5>
+
+                                    <small>
+
+                                        Repeticiones
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a href="#"
+                                   class="btn btn-primary">
+
+                                    Ver Detalle
+
+                                </a>
+
+                                <a th:href="@{/ejercicio/agregarRutina/{id}(id=${e.idEjercicio})}"
+                                   class="btn btn-outline-success">
+
+                                    Agregar a Rutina
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

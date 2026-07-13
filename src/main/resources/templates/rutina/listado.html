@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container mt-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h2 class="titulo">
+
+                        Mis Rutinas
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Organiza tus entrenamientos y crea planes personalizados.
+
+                    </p>
+
+                </div>
+
+                <a class="btn btn-success disabled"
+                   aria-disabled="true">
+
+                    Nueva Rutina
+
+                </a>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4"
+                     th:each="r : ${rutinas}">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between">
+
+                                <h4>
+
+                                    [[${r.nombre}]]
+
+                                </h4>
+
+                                <span
+                                    class="badge bg-success"
+                                    th:if="${r.activo}">
+
+                                    Activa
+
+                                </span>
+
+                                <span
+                                    class="badge bg-danger"
+                                    th:unless="${r.activo}">
+
+                                    Inactiva
+
+                                </span>
+
+                            </div>
+
+                            <hr>
+
+                            <p>
+
+                                <strong>Objetivo</strong>
+
+                            </p>
+
+                            <p class="text-muted">
+
+                                [[${r.objetivo}]]
+
+                            </p>
+
+                            <div class="row text-center mt-4">
+
+                                <div class="col">
+
+                                    <h4 class="text-primary">
+
+                                        [[${r.nivel}]]
+
+                                    </h4>
+
+                                    <small>
+
+                                        Nivel
+
+                                    </small>
+
+                                </div>
+
+                                <div class="col">
+
+                                    <h4 class="text-success">
+
+                                        [[${r.duracion}]]
+
+                                    </h4>
+
+                                    <small>
+
+                                        Minutos
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a th:href="@{/rutina/detalle/{id}(id=${r.idRutina})}"
+                                   class="btn btn-primary">
+
+                                    Ver Rutina
+
+                                </a>
+
+                                <a href="#"
+                                   class="btn btn-warning">
+
+                                    Editar
+
+                                </a>
+
+                                <a href="#"
+                                   class="btn btn-outline-danger">
+
+                                    Eliminar
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

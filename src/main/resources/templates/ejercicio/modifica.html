@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container mt-5">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white">
+
+                    <h3>
+
+                        Nuevo Ejercicio
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form
+                        th:action="@{/ejercicio/guardar}"
+                        th:object="${ejercicio}"
+                        method="post"
+                        enctype="multipart/form-data">
+
+                        <input
+                            type="hidden"
+                            th:field="*{idEjercicio}"/>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Nombre
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                th:field="*{nombre}"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Descripción
+
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                rows="3"
+                                th:field="*{descripcion}"
+                                required>
+                            </textarea>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Grupo Muscular
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                th:field="*{grupoMuscular}"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Nivel
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                th:field="*{nivel}"
+                                required>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Series
+
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    th:field="*{series}"
+                                    min="1"
+                                    required>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Repeticiones
+
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    th:field="*{repeticiones}"
+                                    min="1"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- NUEVO CAMPO -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Imagen del Ejercicio
+
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                name="imagenFile"
+                                accept="image/*"
+                                required>
+
+                            <small class="text-muted">
+
+                                Seleccione una imagen desde su computadora.
+
+                            </small>
+
+                        </div>
+
+                        <div class="form-check mb-4">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                th:field="*{activo}">
+
+                            <label class="form-check-label">
+
+                                Ejercicio Activo
+
+                            </label>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-success">
+
+                            Guardar
+
+                        </button>
+
+                        <a
+                            th:href="@{/ejercicio/listado}"
+                            class="btn btn-secondary">
+
+                            Cancelar
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

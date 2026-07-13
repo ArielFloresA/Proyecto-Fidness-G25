@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container mt-5">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white">
+
+                    <h3>
+
+                        Agregar Ejercicio a una Rutina
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4 text-center">
+
+                            <img th:src="${ejercicio.imagen}"
+                                 class="img-fluid rounded shadow"
+                                 style="max-height:250px;">
+
+                        </div>
+
+                        <div class="col-md-8">
+
+                            <h3>
+
+                                [[${ejercicio.nombre}]]
+
+                            </h3>
+
+                            <hr>
+
+                            <p>
+
+                                <strong>Grupo Muscular:</strong>
+
+                                [[${ejercicio.grupoMuscular}]]
+
+                            </p>
+
+                            <p>
+
+                                <strong>Nivel:</strong>
+
+                                [[${ejercicio.nivel}]]
+
+                            </p>
+
+                            <p>
+
+                                [[${ejercicio.descripcion}]]
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <form>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Seleccione una Rutina
+
+                            </label>
+
+                            <select class="form-select">
+
+                                <option
+                                    th:each="r : ${rutinas}"
+                                    th:text="${r.nombre}">
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="d-grid gap-2">
+
+                            <button type="button"
+                                    class="btn btn-success">
+
+                                Agregar (Disponible en el próximo avance)
+
+                            </button>
+
+                            <a th:href="@{/ejercicio/listado}"
+                               class="btn btn-secondary">
+
+                                Cancelar
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

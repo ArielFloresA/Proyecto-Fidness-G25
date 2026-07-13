@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container mt-4">
+
+            <!-- Hero Principal -->
+
+            <div class="hero shadow-lg">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-7">
+
+                        <h1>
+
+                            Entrena Inteligente.
+                            Vive Saludable.
+
+                        </h1>
+
+                        <p class="mt-4">
+
+                            Diseña tus propias rutinas, descubre nuevos ejercicios
+                            y lleva un seguimiento de tu progreso físico desde
+                            cualquier lugar.
+
+                        </p>
+
+                        <div class="mt-4">
+
+                            <a th:href="@{/ejercicio/listado}"
+                               class="btn btn-warning btn-lg me-3">
+
+                                Explorar Ejercicios
+
+                            </a>
+
+                            <a th:href="@{/rutina/listado}"
+                               class="btn btn-outline-light btn-lg">
+
+                                Mis Rutinas
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Servicios -->
+
+            <div class="mt-5">
+
+                <h2 class="titulo text-center mb-4">
+
+                    ¿Qué puedes hacer en FIDNESS?
+
+                </h2>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow h-100">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700"
+                                class="card-img-top"
+                                style="height:220px;object-fit:cover;">
+
+                            <div class="card-body">
+
+                                <h4>
+
+                                    Ejercicios
+
+                                </h4>
+
+                                <p>
+
+                                    Consulta un catálogo completo de ejercicios
+                                    organizados por grupo muscular y nivel.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow h-100">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700"
+                                class="card-img-top"
+                                style="height:220px;object-fit:cover;">
+
+                            <div class="card-body">
+
+                                <h4>
+
+                                    Rutinas
+
+                                </h4>
+
+                                <p>
+
+                                    Organiza tus entrenamientos y crea planes
+                                    personalizados según tus objetivos.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow h-100">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=700"
+                                class="card-img-top"
+                                style="height:220px;object-fit:cover;">
+
+                            <div class="card-body">
+
+                                <h4>
+
+                                    Progreso
+
+                                </h4>
+
+                                <p>
+
+                                    Lleva un seguimiento de tu evolución y mantén la
+                                    motivación para alcanzar tus metas.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Estadísticas -->
+
+            <div class="mt-5">
+
+                <h2 class="titulo text-center mb-4">
+
+                    Información del Sistema
+
+                </h2>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow text-center p-4">
+
+                            <h1 class="text-primary"
+                                th:text="${#lists.size(ejercicios)}">
+
+                            </h1>
+
+                            <h5>
+
+                                Ejercicios Disponibles
+
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow text-center p-4">
+
+                            <h1 class="text-success">
+
+                                5
+
+                            </h1>
+
+                            <h5>
+
+                                Rutinas Iniciales
+
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow text-center p-4">
+
+                            <h1 class="text-warning">
+
+                                24/7
+
+                            </h1>
+
+                            <h5>
+
+                                Disponible
+
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

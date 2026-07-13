@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container mt-5">
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <div class="card shadow">
+
+                        <div class="card-header bg-primary text-white">
+
+                            <h3>
+
+                                [[${rutina.nombre}]]
+
+                            </h3>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <h5 class="text-success">
+
+                                Objetivo
+
+                            </h5>
+
+                            <p>
+
+                                [[${rutina.objetivo}]]
+
+                            </p>
+
+                            <hr>
+
+                            <div class="row text-center">
+
+                                <div class="col-md-4">
+
+                                    <h3 class="text-primary">
+
+                                        [[${rutina.nivel}]]
+
+                                    </h3>
+
+                                    <small>
+
+                                        Nivel
+
+                                    </small>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <h3 class="text-success">
+
+                                        [[${rutina.duracion}]]
+
+                                    </h3>
+
+                                    <small>
+
+                                        Minutos
+
+                                    </small>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <span
+                                        class="badge bg-success fs-6"
+                                        th:if="${rutina.activo}">
+
+                                        Activa
+
+                                    </span>
+
+                                    <span
+                                        class="badge bg-danger fs-6"
+                                        th:unless="${rutina.activo}">
+
+                                        Inactiva
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card shadow">
+
+                        <div class="card-header bg-success text-white">
+
+                            <h4>
+
+                                Acciones
+
+                            </h4>
+
+                        </div>
+
+                        <div class="card-body d-grid gap-2">
+
+                            <a href="#"
+                               class="btn btn-success">
+
+                                Editar Rutina
+
+                            </a>
+
+                            <a th:href="@{/rutina/listado}"
+                               class="btn btn-outline-secondary">
+
+                                Volver
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="card shadow">
+
+                <div class="card-header bg-dark text-white">
+
+                    <h4>
+
+                        Ejercicios Recomendados
+
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6 col-lg-3 mb-4"
+                             th:each="e : ${ejercicios}">
+
+                            <div class="card h-100 shadow-sm">
+
+                                <img th:src="${e.imagen}"
+                                     class="card-img-top"
+                                     style="height:180px;object-fit:cover;">
+
+                                <div class="card-body">
+
+                                    <h5>
+
+                                        [[${e.nombre}]]
+
+                                    </h5>
+
+                                    <span class="badge bg-primary">
+
+                                        [[${e.grupoMuscular}]]
+
+                                    </span>
+
+                                    <span class="badge bg-success">
+
+                                        [[${e.nivel}]]
+
+                                    </span>
+
+                                    <hr>
+
+                                    <small>
+
+                                        [[${e.series}]] series
+
+                                    </small>
+
+                                    <br>
+
+                                    <small>
+
+                                        [[${e.repeticiones}]] repeticiones
+
+                                    </small>
+
+                                </div>
+
+                                <div class="card-footer bg-white border-0">
+
+                                    <button
+                                        class="btn btn-outline-success w-100"
+                                        disabled>
+
+                                        Agregar a Rutina
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>
