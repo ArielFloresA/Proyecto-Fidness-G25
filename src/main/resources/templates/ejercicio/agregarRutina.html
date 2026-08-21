@@ -9,16 +9,15 @@
         <header th:replace="~{general/fragmentos :: header}">
         </header>
 
-        <div class="container mt-5">
+        <div class="container py-5">
 
             <div class="card shadow">
 
-                <div class="card-header bg-success text-white">
+                <div class="card-header
+                     bg-success text-white">
 
-                    <h3>
-
+                    <h3 th:text="#{ejercicio.agregar.titulo}">
                         Agregar Ejercicio a una Rutina
-
                     </h3>
 
                 </div>
@@ -31,62 +30,140 @@
 
                             <img th:src="${ejercicio.imagen}"
                                  class="img-fluid rounded shadow"
-                                 style="max-height:250px;">
+                                 style="max-height:250px;"/>
 
                         </div>
 
                         <div class="col-md-8">
 
-                            <h3>
-
-                                [[${ejercicio.nombre}]]
-
+                            <h3 th:text="${ejercicio.nombre}">
                             </h3>
 
-                            <hr>
+                            <hr/>
 
                             <p>
 
-                                <strong>Grupo Muscular:</strong>
+                                <strong th:text="#{ejercicio.grupo}">
+                                    Grupo muscular:
+                                </strong>
 
-                                [[${ejercicio.grupoMuscular}]]
+                                <span th:if="${ejercicio.grupoMuscular == 'Pecho'}"
+                                      th:text="#{ejercicio.grupo.pecho}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Espalda'}"
+                                      th:text="#{ejercicio.grupo.espalda}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Piernas'}"
+                                      th:text="#{ejercicio.grupo.piernas}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Bíceps'}"
+                                      th:text="#{ejercicio.grupo.biceps}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Tríceps'}"
+                                      th:text="#{ejercicio.grupo.triceps}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Hombros'}"
+                                      th:text="#{ejercicio.grupo.hombros}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Abdomen'}"
+                                      th:text="#{ejercicio.grupo.abdomen}">
+                                </span>
+
+                                <span th:if="${ejercicio.grupoMuscular == 'Cardio'}"
+                                      th:text="#{ejercicio.grupo.cardio}">
+                                </span>
 
                             </p>
 
                             <p>
 
-                                <strong>Nivel:</strong>
+                                <strong th:text="#{ejercicio.nivel}">
+                                    Nivel:
+                                </strong>
 
-                                [[${ejercicio.nivel}]]
+                                <span th:if="${ejercicio.nivel == 'Principiante'}"
+                                      th:text="#{ejercicio.nivel.principiante}">
+                                </span>
+
+                                <span th:if="${ejercicio.nivel == 'Intermedio'}"
+                                      th:text="#{ejercicio.nivel.intermedio}">
+                                </span>
+
+                                <span th:if="${ejercicio.nivel == 'Avanzado'}"
+                                      th:text="#{ejercicio.nivel.avanzado}">
+                                </span>
 
                             </p>
 
-                            <p>
-
-                                [[${ejercicio.descripcion}]]
-
+                            <p th:text="${ejercicio.descripcion}">
                             </p>
 
                         </div>
 
                     </div>
 
-                    <hr>
+                    <hr/>
 
-                    <form>
+                    <div th:if="${rutinas == null
+                         or rutinas.empty}"
+                         class="alert alert-info">
+
+                        <span th:text="#{ejercicio.agregar.sinRutina}">
+                            Primero debes crear una rutina.
+                        </span>
+
+                        <div class="mt-3">
+
+                            <a th:href="@{/rutina/nuevo}"
+                               class="btn btn-success"
+                               th:text="#{ejercicio.agregar.crearRutina}">
+
+                                Crear Rutina
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <form th:if="${rutinas != null
+                          and !rutinas.empty}"
+                          th:action="@{/rutina/agregarEjercicio}"
+                          method="POST">
+
+                        <input type="hidden"
+                               name="idEjercicio"
+                               th:value="${ejercicio.idEjercicio}"/>
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label"
+                                   th:text="#{ejercicio.agregar.seleccionarRutina}">
 
-                                Seleccione una Rutina
+                                Seleccione una rutina
 
                             </label>
 
-                            <select class="form-select">
+                            <select name="idRutina"
+                                    class="form-select"
+                                    required>
+
+                                <option value=""
+                                        th:text="#{ejercicio.seleccionar}">
+
+                                    Seleccione
+
+                                </option>
 
                                 <option
                                     th:each="r : ${rutinas}"
+                                    th:value="${r.idRutina}"
                                     th:text="${r.nombre}">
                                 </option>
 
@@ -96,15 +173,17 @@
 
                         <div class="d-grid gap-2">
 
-                            <button type="button"
-                                    class="btn btn-success">
+                            <button type="submit"
+                                    class="btn btn-success"
+                                    th:text="#{ejercicio.agregarRutina}">
 
-                                Agregar (Disponible en el próximo avance)
+                                Agregar a Rutina
 
                             </button>
 
                             <a th:href="@{/ejercicio/listado}"
-                               class="btn btn-secondary">
+                               class="btn btn-secondary"
+                               th:text="#{accion.cancelar}">
 
                                 Cancelar
 

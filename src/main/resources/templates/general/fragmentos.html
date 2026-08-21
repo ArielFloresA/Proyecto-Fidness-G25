@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:fragment="head">
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>FIDNESS</title>
+        <title th:text="#{aplicacion.titulo}">
+            FIDNESS
+        </title>
 
         <link rel="stylesheet"
               th:href="@{/css/bootstrap.min.css}"/>
+
+        <link th:href="@{/webjars/font-awesome/css/all.css}"
+              rel="stylesheet"/>
 
         <style>
 
@@ -79,6 +85,33 @@
                 margin-top:60px;
             }
 
+            .idiomas{
+                margin-top:15px;
+            }
+
+            .idioma-link{
+                display:inline-flex;
+                align-items:center;
+                gap:6px;
+                text-decoration:none;
+                color:white;
+                padding:6px 10px;
+                border-radius:8px;
+                transition:.2s;
+                border:1px solid rgba(255,255,255,.25);
+            }
+
+            .idioma-link:hover{
+                background:rgba(255,255,255,.12);
+                color:white;
+                transform:translateY(-1px);
+            }
+
+            .bandera{
+                font-size:24px;
+                line-height:1;
+            }
+
         </style>
 
     </head>
@@ -99,8 +132,11 @@
                     </a>
 
                     <button class="navbar-toggler"
+                            type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target="#menu">
+                            data-bs-target="#menu"
+                            aria-controls="menu"
+                            aria-expanded="false">
 
                         <span class="navbar-toggler-icon"></span>
 
@@ -114,10 +150,9 @@
                             <li class="nav-item">
 
                                 <a class="nav-link"
-                                   th:href="@{/}">
-
+                                   th:href="@{/}"
+                                   th:text="#{menu.inicio}">
                                     Inicio
-
                                 </a>
 
                             </li>
@@ -125,10 +160,9 @@
                             <li class="nav-item">
 
                                 <a class="nav-link"
-                                   th:href="@{/ejercicio/listado}">
-
+                                   th:href="@{/ejercicio/listado}"
+                                   th:text="#{menu.ejercicios}">
                                     Ejercicios
-
                                 </a>
 
                             </li>
@@ -136,10 +170,9 @@
                             <li class="nav-item">
 
                                 <a class="nav-link"
-                                   th:href="@{/rutina/listado}">
-
+                                   th:href="@{/rutina/listado}"
+                                   th:text="#{menu.rutinas}">
                                     Rutinas
-
                                 </a>
 
                             </li>
@@ -147,10 +180,40 @@
                             <li class="nav-item">
 
                                 <a class="nav-link"
-                                   href="#">
+                                   th:href="@{/membresia/listado}"
+                                   th:text="#{menu.membresias}">
+                                    Membresías
+                                </a>
 
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   th:href="@{/clase/listado}"
+                                   th:text="#{menu.clases}">
+                                    Clases
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   th:href="@{/progreso/listado}"
+                                   th:text="#{menu.progreso}">
                                     Mi Progreso
+                                </a>
 
+                            </li>
+
+                            <li class="nav-item"
+                                sec:authorize="hasRole('ROLE_ADMIN')">
+
+                                <a class="nav-link"
+                                   th:href="@{/admin}"
+                                   th:text="#{menu.administracion}">
+                                    Administración
                                 </a>
 
                             </li>
@@ -158,31 +221,60 @@
                             <li class="nav-item">
 
                                 <a class="nav-link"
-                                   href="#">
-
+                                   th:href="@{/acerca}"
+                                   th:text="#{menu.acerca}">
                                     Acerca de
-
                                 </a>
 
                             </li>
 
                         </ul>
 
-                        <div class="ms-3">
+                        <div class="ms-3 d-flex gap-2"
+                             sec:authorize="isAnonymous()">
 
-                            <a href="#"
+                            <a th:href="@{/login}"
+                               class="btn btn-outline-light btn-sm"
+                               th:text="#{auth.login}">
+                                Iniciar sesión
+                            </a>
+
+                            <a th:href="@{/registro}"
+                               class="btn btn-warning btn-sm"
+                               th:text="#{auth.registro}">
+                                Registrarse
+                            </a>
+
+                        </div>
+
+                        <div class="ms-3 d-flex align-items-center gap-2"
+                             sec:authorize="isAuthenticated()">
+
+                            <a th:href="@{/perfil}"
                                class="btn btn-outline-light btn-sm">
 
-                                Iniciar sesión
+                                <i class="fas fa-user me-1"></i>
+
+                                <span th:text="#{menu.perfil}">
+                                    Mi Perfil
+                                </span>
 
                             </a>
 
-                            <a href="#"
-                               class="btn btn-warning btn-sm">
+                            <form th:action="@{/logout}"
+                                  method="POST"
+                                  class="m-0">
 
-                                Registrarse
+                                <button type="submit"
+                                        class="btn btn-outline-light btn-sm">
 
-                            </a>
+                                    <span th:text="#{auth.logout}">
+                                        Cerrar sesión
+                                    </span>
+
+                                </button>
+
+                            </form>
 
                         </div>
 
@@ -199,22 +291,54 @@
             <div class="container py-4 text-center">
 
                 <h5>
-
                     FIDNESS
-
                 </h5>
 
-                <p class="mb-1">
-
+                <p class="mb-1"
+                   th:text="#{footer.curso}">
                     Desarrollo de Aplicaciones Web y Patrones
-
                 </p>
 
-                <small>
-
+                <small th:text="#{footer.derechos}">
                     © 2026 Ariel Flores
-
                 </small>
+
+                <div class="idiomas">
+
+                    <div class="small text-light mb-2"
+                         th:text="#{footer.idioma}">
+                        Seleccionar idioma
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-2">
+
+                        <a th:href="@{/(lang='es')}"
+                           class="idioma-link"
+                           th:title="#{idioma.espanol}">
+
+                            <span class="bandera">🇨🇷</span>
+
+                            <span th:text="#{idioma.espanol}">
+                                Español
+                            </span>
+
+                        </a>
+
+                        <a th:href="@{/(lang='en')}"
+                           class="idioma-link"
+                           th:title="#{idioma.ingles}">
+
+                            <span class="bandera">🇺🇸</span>
+
+                            <span th:text="#{idioma.ingles}">
+                                English
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 

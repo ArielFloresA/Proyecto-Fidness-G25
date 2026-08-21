@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="d-flex
+                 justify-content-between
+                 align-items-center mb-4">
+
+                <div>
+
+                    <h1 class="titulo"
+                        th:text="#{admin.clase.titulo}">
+                        Administración de Clases
+                    </h1>
+
+                    <p class="text-muted"
+                       th:text="#{admin.clase.descripcion}">
+                        Gestiona las clases grupales
+                        disponibles en FIDNESS.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/admin/clase/nuevo}"
+                   class="btn btn-success">
+
+                    <i class="fas fa-plus me-1"></i>
+
+                    <span th:text="#{admin.clase.nueva}">
+                        Nueva Clase
+                    </span>
+
+                </a>
+
+            </div>
+
+            <div th:if="${param.guardado}"
+                 class="alert alert-success"
+                 th:text="#{admin.clase.guardada}">
+                Clase guardada correctamente.
+            </div>
+
+            <div th:if="${param.desactivada}"
+                 class="alert alert-success"
+                 th:text="#{admin.clase.desactivada}">
+                Clase desactivada correctamente.
+            </div>
+
+            <div class="card shadow">
+
+                <div class="table-responsive">
+
+                    <table class="table
+                           table-hover
+                           align-middle mb-0">
+
+                        <thead class="table-dark">
+
+                            <tr>
+
+                                <th th:text="#{admin.clase.clase}">
+                                    Clase
+                                </th>
+
+                                <th th:text="#{admin.clase.instructor}">
+                                    Instructor
+                                </th>
+
+                                <th th:text="#{admin.clase.fecha}">
+                                    Fecha
+                                </th>
+
+                                <th th:text="#{admin.clase.hora}">
+                                    Hora
+                                </th>
+
+                                <th th:text="#{admin.clase.capacidad}">
+                                    Capacidad
+                                </th>
+
+                                <th th:text="#{admin.clase.estado}">
+                                    Estado
+                                </th>
+
+                                <th th:text="#{admin.clase.acciones}">
+                                    Acciones
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr th:each="c : ${clases}">
+
+                                <td th:text="${c.nombre}">
+                                </td>
+
+                                <td th:text="${c.instructor}">
+                                </td>
+
+                                <td th:text="${#temporals.format(
+                                    c.fecha,
+                                    'dd/MM/yyyy')}">
+                                </td>
+
+                                <td th:text="${#temporals.format(
+                                    c.hora,
+                                    'HH:mm')}">
+                                </td>
+
+                                <td th:text="${c.capacidad}">
+                                </td>
+
+                                <td>
+
+                                    <span th:if="${c.activo}"
+                                          class="badge bg-success"
+                                          th:text="#{admin.clase.activa}">
+                                        Activa
+                                    </span>
+
+                                    <span th:unless="${c.activo}"
+                                          class="badge bg-secondary"
+                                          th:text="#{admin.clase.inactiva}">
+                                        Inactiva
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <a th:href="@{/admin/clase/editar/{id}(id=${c.idClase})}"
+                                       class="btn btn-warning btn-sm"
+                                       th:text="#{admin.clase.editar}">
+                                        Editar
+                                    </a>
+
+                                    <a th:if="${c.activo}"
+                                       th:href="@{/admin/clase/desactivar/{id}(id=${c.idClase})}"
+                                       class="btn
+                                       btn-outline-danger
+                                       btn-sm"
+                                       th:onclick="'return confirm(\'' + #{admin.clase.confirmarDesactivar} + '\');'"
+                                       th:text="#{admin.clase.desactivar}">
+                                        Desactivar
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+
+                <a th:href="@{/admin}"
+                   class="btn btn-outline-secondary"
+                   th:text="#{admin.clase.volver}">
+                    Volver al Panel
+                </a>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

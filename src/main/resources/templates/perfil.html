@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{general/fragmentos :: head}">
+        <title th:text="#{perfil.tituloPagina}">
+            Mi Perfil | FIDNESS
+        </title>
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-9">
+
+                    <div class="card shadow-lg">
+
+                        <div class="card-body p-4 p-md-5">
+
+                            <div class="row">
+
+                                <div class="col-md-4 text-center mb-4">
+
+                                    <img th:if="${usuario.rutaImagen != null
+                                         and !usuario.rutaImagen.isBlank()}"
+                                         th:src="${usuario.rutaImagen}"
+                                         class="rounded-circle shadow mb-3"
+                                         style="
+                                         width:180px;
+                                         height:180px;
+                                         object-fit:cover;
+                                         "
+                                         th:alt="#{perfil.fotoAlt}"/>
+
+                                    <div th:if="${usuario.rutaImagen == null
+                                         or usuario.rutaImagen.isBlank()}"
+                                         class="
+                                         rounded-circle
+                                         bg-success
+                                         text-white
+                                         d-flex
+                                         align-items-center
+                                         justify-content-center
+                                         mx-auto
+                                         mb-3
+                                         shadow
+                                         "
+                                         style="
+                                         width:180px;
+                                         height:180px;
+                                         font-size:70px;
+                                         ">
+
+                                        <i class="fas fa-user"></i>
+
+                                    </div>
+
+                                    <h3 th:text="${usuario.nombre
+                                        + ' '
+                                        + usuario.apellidos}">
+                                        Nombre Usuario
+                                    </h3>
+
+                                    <p class="text-muted"
+                                       th:text="${usuario.correo}">
+                                        usuario@correo.com
+                                    </p>
+
+                                    <div class="d-grid mt-4">
+
+                                        <a th:href="@{/perfil/password}"
+                                           class="btn btn-outline-primary">
+
+                                            <i class="fas fa-key me-2"></i>
+
+                                            <span th:text="#{perfil.cambiarPassword}">
+                                                Cambiar contraseña
+                                            </span>
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-8">
+
+                                    <h2 class="titulo mb-4"
+                                        th:text="#{perfil.titulo}">
+                                        Mi Perfil
+                                    </h2>
+
+                                    <div th:if="${param.actualizado}"
+                                         class="alert alert-success">
+
+                                        <i class="fas fa-circle-check me-2"></i>
+
+                                        <span th:text="#{perfil.actualizado}">
+                                            Perfil actualizado correctamente.
+                                        </span>
+
+                                    </div>
+
+                                    <div th:if="${param.passwordActualizado}"
+                                         class="alert alert-success">
+
+                                        <i class="fas fa-key me-2"></i>
+
+                                        <span th:text="#{perfil.passwordActualizado}">
+                                            Contraseña actualizada correctamente.
+                                        </span>
+
+                                    </div>
+
+                                    <div th:if="${error}"
+                                         class="alert alert-danger"
+                                         th:text="${error}">
+                                    </div>
+
+                                    <form th:action="@{/perfil/guardar}"
+                                          method="POST"
+                                          enctype="multipart/form-data">
+
+                                        <div class="row">
+
+                                            <div class="col-md-6 mb-3">
+
+                                                <label class="form-label"
+                                                       th:text="#{perfil.nombre}">
+                                                    Nombre
+                                                </label>
+
+                                                <input type="text"
+                                                       name="nombre"
+                                                       class="form-control"
+                                                       th:value="${usuario.nombre}"
+                                                       required/>
+
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+
+                                                <label class="form-label"
+                                                       th:text="#{perfil.apellidos}">
+                                                    Apellidos
+                                                </label>
+
+                                                <input type="text"
+                                                       name="apellidos"
+                                                       class="form-control"
+                                                       th:value="${usuario.apellidos}"
+                                                       required/>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="mb-3">
+
+                                            <label class="form-label"
+                                                   th:text="#{perfil.correo}">
+                                                Correo electrónico
+                                            </label>
+
+                                            <input type="email"
+                                                   name="correo"
+                                                   class="form-control"
+                                                   th:value="${usuario.correo}"
+                                                   required/>
+
+                                        </div>
+
+                                        <div class="mb-3">
+
+                                            <label class="form-label"
+                                                   th:text="#{perfil.telefono}">
+                                                Teléfono
+                                            </label>
+
+                                            <input type="text"
+                                                   name="telefono"
+                                                   class="form-control"
+                                                   th:value="${usuario.telefono}"
+                                                   placeholder="8888-8888"/>
+
+                                        </div>
+
+                                        <div class="mb-4">
+
+                                            <label class="form-label"
+                                                   th:text="#{perfil.fotografia}">
+                                                Fotografía de perfil
+                                            </label>
+
+                                            <input type="file"
+                                                   name="imagenFile"
+                                                   class="form-control"
+                                                   accept="image/*"/>
+
+                                            <small class="text-muted"
+                                                   th:text="#{perfil.fotografiaAyuda}">
+                                                Si no seleccionas una imagen,
+                                                se mantendrá la actual.
+                                            </small>
+
+                                        </div>
+
+                                        <div class="d-flex gap-2 flex-wrap">
+
+                                            <button type="submit"
+                                                    class="btn btn-success">
+
+                                                <i class="fas fa-save me-2"></i>
+
+                                                <span th:text="#{perfil.guardar}">
+                                                    Guardar cambios
+                                                </span>
+
+                                            </button>
+
+                                            <a th:href="@{/}"
+                                               class="btn btn-outline-secondary"
+                                               th:text="#{perfil.cancelar}">
+                                                Cancelar
+                                            </a>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="UTF-8"/>
+
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0"/>
+
+        <title th:text="#{recuperar.tituloPagina}">
+            Recuperar contraseña | FIDNESS
+        </title>
+
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+              rel="stylesheet"/>
+
+        <link th:href="@{/webjars/font-awesome/css/all.css}"
+              rel="stylesheet"/>
+
+        <style>
+
+            body {
+                background-color: #f5f7f8;
+                min-height: 100vh;
+            }
+
+            .recuperar-container {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .recuperar-card {
+                max-width: 500px;
+                width: 100%;
+                border: none;
+                border-radius: 20px;
+            }
+
+            .brand-title {
+                font-weight: 800;
+                letter-spacing: 2px;
+            }
+
+            .btn-fidness {
+                background-color: #198754;
+                color: white;
+                font-weight: 600;
+            }
+
+            .btn-fidness:hover {
+                background-color: #157347;
+                color: white;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="container recuperar-container">
+
+            <div class="card shadow-lg recuperar-card">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+
+                        <h1 class="brand-title text-success">
+                            FIDNESS
+                        </h1>
+
+                        <h4 th:text="#{recuperar.titulo}">
+                            Recuperar contraseña
+                        </h4>
+
+                        <p class="text-muted"
+                           th:text="#{recuperar.descripcion}">
+                            Ingresa el correo asociado a tu cuenta.
+                        </p>
+
+                    </div>
+
+                    <div th:if="${error}"
+                         class="alert alert-danger"
+                         th:text="${error}">
+                    </div>
+
+                    <div th:if="${mensaje}"
+                         class="alert alert-success"
+                         th:text="${mensaje}">
+                    </div>
+
+                    <form th:action="@{/recuperar/enviar}"
+                          method="POST">
+
+                        <div class="mb-4">
+
+                            <label for="correo"
+                                   class="form-label"
+                                   th:text="#{recuperar.correo}">
+                                Correo electrónico
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="fas fa-envelope"></i>
+
+                                </span>
+
+                                <input type="email"
+                                       id="correo"
+                                       name="correo"
+                                       class="form-control"
+                                       th:placeholder="#{recuperar.placeholder}"
+                                       required/>
+
+                            </div>
+
+                        </div>
+
+                        <div class="d-grid mb-3">
+
+                            <button type="submit"
+                                    class="btn btn-fidness btn-lg">
+
+                                <i class="fas fa-paper-plane me-2"></i>
+
+                                <span th:text="#{recuperar.enviar}">
+                                    Enviar enlace
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <div class="text-center mt-3">
+
+                        <a th:href="@{/login}"
+                           class="text-success fw-bold">
+
+                            <i class="fas fa-arrow-left me-1"></i>
+
+                            <span th:text="#{recuperar.regresar}">
+                                Regresar al inicio de sesión
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
+        </script>
+
+    </body>
+</html>

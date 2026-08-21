@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:replace="~{general/fragmentos :: head}">
     </head>
@@ -11,30 +12,234 @@
 
         <div class="container mt-5">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between
+                 align-items-center mb-4">
 
                 <div>
 
-                    <h2 class="titulo">
-
+                    <h2 class="titulo"
+                        th:text="#{ejercicio.catalogo.titulo}">
                         Catálogo de Ejercicios
-
                     </h2>
 
-                    <p class="text-muted">
-
-                        Explora los ejercicios disponibles y encuentra el entrenamiento ideal.
-
+                    <p class="text-muted"
+                       th:text="#{ejercicio.catalogo.descripcion}">
+                        Explora y filtra los ejercicios
+                        según tus objetivos.
                     </p>
 
                 </div>
 
                 <a th:href="@{/ejercicio/nuevo}"
+                   sec:authorize="hasRole('ROLE_ADMIN')"
                    class="btn btn-success">
 
-                    Nuevo Ejercicio
+                    <i class="fas fa-plus me-1"></i>
+
+                    <span th:text="#{ejercicio.nuevo}">
+                        Nuevo Ejercicio
+                    </span>
 
                 </a>
+
+            </div>
+
+            <div class="card shadow-sm mb-5">
+
+                <div class="card-body">
+
+                    <h5 class="mb-3">
+
+                        <i class="fas fa-filter me-2"></i>
+
+                        <span th:text="#{ejercicio.filtros.titulo}">
+                            Filtrar ejercicios
+                        </span>
+
+                    </h5>
+
+                    <form th:action="@{/ejercicio/listado}"
+                          method="GET">
+
+                        <div class="row g-3">
+
+                            <div class="col-md-4">
+
+                                <label class="form-label"
+                                       th:text="#{ejercicio.grupo}">
+                                    Grupo muscular
+                                </label>
+
+                                <select name="grupoMuscular"
+                                        class="form-select">
+
+                                    <option value=""
+                                            th:text="#{ejercicio.filtros.todos}">
+                                        Todos
+                                    </option>
+
+                                    <option value="Pecho"
+                                            th:selected="${grupoMuscular == 'Pecho'}"
+                                            th:text="#{ejercicio.grupo.pecho}">
+                                        Pecho
+                                    </option>
+
+                                    <option value="Espalda"
+                                            th:selected="${grupoMuscular == 'Espalda'}"
+                                            th:text="#{ejercicio.grupo.espalda}">
+                                        Espalda
+                                    </option>
+
+                                    <option value="Piernas"
+                                            th:selected="${grupoMuscular == 'Piernas'}"
+                                            th:text="#{ejercicio.grupo.piernas}">
+                                        Piernas
+                                    </option>
+
+                                    <option value="Bíceps"
+                                            th:selected="${grupoMuscular == 'Bíceps'}"
+                                            th:text="#{ejercicio.grupo.biceps}">
+                                        Bíceps
+                                    </option>
+
+                                    <option value="Tríceps"
+                                            th:selected="${grupoMuscular == 'Tríceps'}"
+                                            th:text="#{ejercicio.grupo.triceps}">
+                                        Tríceps
+                                    </option>
+
+                                    <option value="Hombros"
+                                            th:selected="${grupoMuscular == 'Hombros'}"
+                                            th:text="#{ejercicio.grupo.hombros}">
+                                        Hombros
+                                    </option>
+
+                                    <option value="Abdomen"
+                                            th:selected="${grupoMuscular == 'Abdomen'}"
+                                            th:text="#{ejercicio.grupo.abdomen}">
+                                        Abdomen
+                                    </option>
+
+                                    <option value="Cardio"
+                                            th:selected="${grupoMuscular == 'Cardio'}"
+                                            th:text="#{ejercicio.grupo.cardio}">
+                                        Cardio
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <label class="form-label"
+                                       th:text="#{ejercicio.nivel}">
+                                    Nivel
+                                </label>
+
+                                <select name="nivel"
+                                        class="form-select">
+
+                                    <option value=""
+                                            th:text="#{ejercicio.filtros.todos}">
+                                        Todos
+                                    </option>
+
+                                    <option value="Principiante"
+                                            th:selected="${nivel == 'Principiante'}"
+                                            th:text="#{ejercicio.nivel.principiante}">
+                                        Principiante
+                                    </option>
+
+                                    <option value="Intermedio"
+                                            th:selected="${nivel == 'Intermedio'}"
+                                            th:text="#{ejercicio.nivel.intermedio}">
+                                        Intermedio
+                                    </option>
+
+                                    <option value="Avanzado"
+                                            th:selected="${nivel == 'Avanzado'}"
+                                            th:text="#{ejercicio.nivel.avanzado}">
+                                        Avanzado
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <label class="form-label"
+                                       th:text="#{ejercicio.tipo}">
+                                    Tipo de entrenamiento
+                                </label>
+
+                                <select name="tipoEntrenamiento"
+                                        class="form-select">
+
+                                    <option value=""
+                                            th:text="#{ejercicio.filtros.todos}">
+                                        Todos
+                                    </option>
+
+                                    <option value="Fuerza"
+                                            th:selected="${tipoEntrenamiento == 'Fuerza'}"
+                                            th:text="#{ejercicio.tipo.fuerza}">
+                                        Fuerza
+                                    </option>
+
+                                    <option value="Cardio"
+                                            th:selected="${tipoEntrenamiento == 'Cardio'}"
+                                            th:text="#{ejercicio.tipo.cardio}">
+                                        Cardio
+                                    </option>
+
+                                    <option value="Core"
+                                            th:selected="${tipoEntrenamiento == 'Core'}"
+                                            th:text="#{ejercicio.tipo.core}">
+                                        Core
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mt-3 d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fas fa-search me-1"></i>
+
+                                <span th:text="#{ejercicio.filtros.filtrar}">
+                                    Filtrar
+                                </span>
+
+                            </button>
+
+                            <a th:href="@{/ejercicio/listado}"
+                               class="btn btn-outline-secondary"
+                               th:text="#{ejercicio.filtros.limpiar}">
+                                Limpiar filtros
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div th:if="${ejercicios == null
+                 or ejercicios.empty}"
+                 class="alert alert-info"
+                 th:text="#{ejercicio.filtros.sinResultados}">
+
+                No se encontraron ejercicios
+                con los filtros seleccionados.
 
             </div>
 
@@ -47,34 +252,94 @@
 
                         <img th:src="${e.imagen}"
                              class="card-img-top"
-                             style="height:240px;object-fit:cover;">
+                             style="
+                             height:240px;
+                             object-fit:cover;
+                             "
+                             th:alt="#{ejercicio.titulo}"/>
 
                         <div class="card-body">
 
                             <h4 class="card-title">
-
                                 [[${e.nombre}]]
-
                             </h4>
 
-                            <span class="badge bg-primary">
-
-                                [[${e.grupoMuscular}]]
-
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Pecho'}"
+                                  th:text="#{ejercicio.grupo.pecho}">
                             </span>
 
-                            <span class="badge bg-success">
-
-                                [[${e.nivel}]]
-
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Espalda'}"
+                                  th:text="#{ejercicio.grupo.espalda}">
                             </span>
 
-                            <hr>
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Piernas'}"
+                                  th:text="#{ejercicio.grupo.piernas}">
+                            </span>
+
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Bíceps'}"
+                                  th:text="#{ejercicio.grupo.biceps}">
+                            </span>
+
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Tríceps'}"
+                                  th:text="#{ejercicio.grupo.triceps}">
+                            </span>
+
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Hombros'}"
+                                  th:text="#{ejercicio.grupo.hombros}">
+                            </span>
+
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Abdomen'}"
+                                  th:text="#{ejercicio.grupo.abdomen}">
+                            </span>
+
+                            <span class="badge bg-primary"
+                                  th:if="${e.grupoMuscular == 'Cardio'}"
+                                  th:text="#{ejercicio.grupo.cardio}">
+                            </span>
+
+
+                            <span class="badge bg-success"
+                                  th:if="${e.nivel == 'Principiante'}"
+                                  th:text="#{ejercicio.nivel.principiante}">
+                            </span>
+
+                            <span class="badge bg-success"
+                                  th:if="${e.nivel == 'Intermedio'}"
+                                  th:text="#{ejercicio.nivel.intermedio}">
+                            </span>
+
+                            <span class="badge bg-success"
+                                  th:if="${e.nivel == 'Avanzado'}"
+                                  th:text="#{ejercicio.nivel.avanzado}">
+                            </span>
+
+
+                            <span class="badge bg-dark"
+                                  th:if="${e.tipoEntrenamiento == 'Fuerza'}"
+                                  th:text="#{ejercicio.tipo.fuerza}">
+                            </span>
+
+                            <span class="badge bg-dark"
+                                  th:if="${e.tipoEntrenamiento == 'Cardio'}"
+                                  th:text="#{ejercicio.tipo.cardio}">
+                            </span>
+
+                            <span class="badge bg-dark"
+                                  th:if="${e.tipoEntrenamiento == 'Core'}"
+                                  th:text="#{ejercicio.tipo.core}">
+                            </span>
+
+                            <hr/>
 
                             <p>
-
                                 [[${e.descripcion}]]
-
                             </p>
 
                             <div class="row text-center mt-3">
@@ -82,15 +347,11 @@
                                 <div class="col">
 
                                     <h5>
-
                                         [[${e.series}]]
-
                                     </h5>
 
-                                    <small>
-
+                                    <small th:text="#{ejercicio.series}">
                                         Series
-
                                     </small>
 
                                 </div>
@@ -98,15 +359,11 @@
                                 <div class="col">
 
                                     <h5>
-
                                         [[${e.repeticiones}]]
-
                                     </h5>
 
-                                    <small>
-
+                                    <small th:text="#{ejercicio.repeticiones}">
                                         Repeticiones
-
                                     </small>
 
                                 </div>
@@ -119,17 +376,51 @@
 
                             <div class="d-grid gap-2">
 
-                                <a href="#"
+                                <a th:href="@{/ejercicio/detalle/{id}(id=${e.idEjercicio})}"
                                    class="btn btn-primary">
 
-                                    Ver Detalle
+                                    <i class="fas fa-eye me-1"></i>
+
+                                    <span th:text="#{ejercicio.detalle}">
+                                        Ver Detalle
+                                    </span>
 
                                 </a>
 
                                 <a th:href="@{/ejercicio/agregarRutina/{id}(id=${e.idEjercicio})}"
+                                   sec:authorize="isAuthenticated()"
                                    class="btn btn-outline-success">
 
-                                    Agregar a Rutina
+                                    <i class="fas fa-plus me-1"></i>
+
+                                    <span th:text="#{ejercicio.agregarRutina}">
+                                        Agregar a Rutina
+                                    </span>
+
+                                </a>
+
+                                <a th:href="@{/ejercicio/editar/{id}(id=${e.idEjercicio})}"
+                                   sec:authorize="hasRole('ROLE_ADMIN')"
+                                   class="btn btn-warning">
+
+                                    <i class="fas fa-pencil me-1"></i>
+
+                                    <span th:text="#{accion.editar}">
+                                        Editar
+                                    </span>
+
+                                </a>
+
+                                <a th:href="@{/ejercicio/eliminar/{id}(id=${e.idEjercicio})}"
+                                   sec:authorize="hasRole('ROLE_ADMIN')"
+                                   class="btn btn-outline-danger"
+                                   th:onclick="'return confirm(\'' + #{ejercicio.confirmarEliminar} + '\');'">
+
+                                    <i class="fas fa-trash me-1"></i>
+
+                                    <span th:text="#{accion.eliminar}">
+                                        Eliminar
+                                    </span>
 
                                 </a>
 

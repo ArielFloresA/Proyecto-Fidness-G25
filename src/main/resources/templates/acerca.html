@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="text-center mb-5">
+
+                <h1 class="titulo"
+                    th:text="#{acerca.titulo}">
+                    Acerca de FIDNESS
+                </h1>
+
+                <p class="text-muted fs-5"
+                   th:text="#{acerca.descripcion}">
+                    Una plataforma web creada para apoyar
+                    la organización y seguimiento del entrenamiento.
+                </p>
+
+            </div>
+
+            <div class="row g-4 align-items-center mb-5">
+
+                <div class="col-lg-6">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-5">
+
+                            <h2 class="mb-3"
+                                th:text="#{acerca.queEs}">
+                                ¿Qué es FIDNESS?
+                            </h2>
+
+                            <p class="text-muted"
+                               th:text="#{acerca.parrafo1}">
+                            </p>
+
+                            <p class="text-muted"
+                               th:text="#{acerca.parrafo2}">
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-5">
+
+                            <h2 class="mb-4"
+                                th:text="#{acerca.funciones}">
+                                Funcionalidades principales
+                            </h2>
+
+                            <div class="mb-3">
+
+                                <i class="fas fa-user-check
+                                   text-success me-2">
+                                </i>
+
+                                <span th:text="#{acerca.funcion1}">
+                                    Registro, activación e inicio de sesión.
+                                </span>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <i class="fas fa-dumbbell
+                                   text-primary me-2">
+                                </i>
+
+                                <span th:text="#{acerca.funcion2}">
+                                    Consulta y filtrado de ejercicios.
+                                </span>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <i class="fas fa-list-check
+                                   text-success me-2">
+                                </i>
+
+                                <span th:text="#{acerca.funcion3}">
+                                    Creación y administración de rutinas.
+                                </span>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <i class="fas fa-calendar-check
+                                   text-primary me-2">
+                                </i>
+
+                                <span th:text="#{acerca.funcion4}">
+                                    Reserva de clases grupales.
+                                </span>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <i class="fas fa-chart-line
+                                   text-success me-2">
+                                </i>
+
+                                <span th:text="#{acerca.funcion5}">
+                                    Registro y consulta del progreso físico.
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <i class="fas fa-id-card
+                                   text-primary me-2">
+                                </i>
+
+                                <span th:text="#{acerca.funcion6}">
+                                    Consulta de planes de membresía.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow mb-5">
+
+                <div class="card-body p-5">
+
+                    <div class="row text-center g-4">
+
+                        <div class="col-md-3">
+
+                            <i class="fab fa-java
+                               fa-3x
+                               text-primary mb-3">
+                            </i>
+
+                            <h5>
+                                Java
+                            </h5>
+
+                            <p class="text-muted mb-0"
+                               th:text="#{acerca.java}">
+                                Lenguaje principal
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <i class="fas fa-leaf
+                               fa-3x
+                               text-success mb-3">
+                            </i>
+
+                            <h5>
+                                Spring Boot
+                            </h5>
+
+                            <p class="text-muted mb-0"
+                               th:text="#{acerca.spring}">
+                                Desarrollo web y seguridad
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <i class="fas fa-database
+                               fa-3x
+                               text-primary mb-3">
+                            </i>
+
+                            <h5>
+                                MySQL
+                            </h5>
+
+                            <p class="text-muted mb-0"
+                               th:text="#{acerca.mysql}">
+                                Almacenamiento de datos
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <i class="fab fa-bootstrap
+                               fa-3x
+                               text-success mb-3">
+                            </i>
+
+                            <h5>
+                                Bootstrap
+                            </h5>
+
+                            <p class="text-muted mb-0"
+                               th:text="#{acerca.bootstrap}">
+                                Diseño responsive
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow">
+
+                <div class="card-body p-5 text-center">
+
+                    <h3 class="titulo mb-3"
+                        th:text="#{acerca.proyectoAcademico}">
+                        Proyecto Académico
+                    </h3>
+
+                    <p class="text-muted mb-2"
+                       th:text="#{acerca.curso}">
+                        Desarrollo de Aplicaciones Web y Patrones
+                    </p>
+
+                    <p class="mb-1">
+
+                        <strong th:text="#{acerca.proyecto}">
+                            Proyecto
+                        </strong>
+
+                        <strong>:</strong>
+
+                        FIDNESS
+
+                    </p>
+
+                    <p class="mb-4">
+
+                        <strong th:text="#{acerca.desarrollado}">
+                            Desarrollado por
+                        </strong>
+
+                        <strong>:</strong>
+
+                        <span th:text="#{acerca.autor}">
+                            Ariel Flores
+                        </span>
+
+                    </p>
+
+                    <a th:href="@{/}"
+                       class="btn btn-success">
+
+                        <i class="fas fa-house me-1"></i>
+
+                        <span th:text="#{acerca.volver}">
+                            Volver al inicio
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

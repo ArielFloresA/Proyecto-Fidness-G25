@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div th:if="${param.rolAgregado}"
+                 class="alert alert-success"
+                 th:text="#{admin.usuario.rolAgregado}">
+                Rol agregado correctamente.
+            </div>
+
+            <div th:if="${param.rolEliminado}"
+                 class="alert alert-success"
+                 th:text="#{admin.usuario.rolEliminado}">
+                Rol eliminado correctamente.
+            </div>
+
+            <div th:if="${param.estado}"
+                 class="alert alert-success"
+                 th:text="#{admin.usuario.estadoActualizado}">
+                Estado del usuario actualizado correctamente.
+            </div>
+
+            <div th:if="${param.propioAdmin}"
+                 class="alert alert-warning"
+                 th:text="#{admin.usuario.propioAdmin}">
+                No puedes quitar tu propio rol de administrador
+                mientras estás utilizando el sistema.
+            </div>
+
+            <div th:if="${param.propioEstado}"
+                 class="alert alert-warning"
+                 th:text="#{admin.usuario.propioEstado}">
+                No puedes desactivar la cuenta con la que
+                tienes iniciada la sesión.
+            </div>
+
+            <div th:if="${param.propioEliminar}"
+                 class="alert alert-warning"
+                 th:text="#{admin.usuario.propioEliminar}">
+                No puedes eliminar la cuenta con la que
+                tienes iniciada la sesión.
+            </div>
+
+            <div class="d-flex
+                 justify-content-between
+                 align-items-center
+                 mb-4">
+
+                <div>
+
+                    <h1 class="titulo"
+                        th:text="#{admin.usuario.detalle.titulo}">
+                        Administración de Usuario
+                    </h1>
+
+                    <p class="text-muted mb-0"
+                       th:text="#{admin.usuario.detalle.descripcion}">
+                        Información, estado y permisos del usuario.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/admin/usuario/listado}"
+                   class="btn btn-outline-secondary">
+
+                    <i class="fas fa-arrow-left me-1"></i>
+
+                    <span th:text="#{admin.usuario.detalle.volver}">
+                        Usuarios
+                    </span>
+
+                </a>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-lg-5">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-header
+                             bg-primary
+                             text-white">
+
+                            <h5 class="mb-0">
+
+                                <i class="fas fa-user me-2"></i>
+
+                                <span th:text="#{admin.usuario.tarjeta}">
+                                    Usuario
+                                </span>
+
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center mb-4">
+
+                                <img th:if="${usuario.rutaImagen != null
+                                     and !usuario.rutaImagen.isEmpty()}"
+                                     th:src="${usuario.rutaImagen}"
+                                     th:alt="#{admin.usuario.fotoPerfil}"
+                                     class="rounded-circle shadow"
+                                     style="width:150px;
+                                     height:150px;
+                                     object-fit:cover;"/>
+
+                                <div th:if="${usuario.rutaImagen == null
+                                     or usuario.rutaImagen.isEmpty()}"
+                                     class="rounded-circle
+                                     bg-secondary
+                                     text-white
+                                     d-flex
+                                     align-items-center
+                                     justify-content-center
+                                     mx-auto"
+                                     style="width:150px;
+                                     height:150px;">
+
+                                    <i class="fas fa-user fa-4x"></i>
+
+                                </div>
+
+                                <h3 class="mt-3 mb-1"
+                                    th:text="${usuario.nombre
+                                    + ' '
+                                    + usuario.apellidos}">
+                                    Nombre Usuario
+                                </h3>
+
+                                <span th:if="${usuario.activo}"
+                                      class="badge bg-success"
+                                      th:text="#{admin.usuario.cuentaActiva}">
+                                    Cuenta activa
+                                </span>
+
+                                <span th:unless="${usuario.activo}"
+                                      class="badge bg-danger"
+                                      th:text="#{admin.usuario.cuentaInactiva}">
+                                    Cuenta inactiva
+                                </span>
+
+                            </div>
+
+                            <hr>
+
+                            <p>
+
+                                <strong th:text="#{admin.usuario.campoUsuario}">
+                                    Usuario:
+                                </strong>
+
+                                <span th:text="${usuario.username}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <strong th:text="#{admin.usuario.campoCorreo}">
+                                    Correo:
+                                </strong>
+
+                                <span th:text="${usuario.correo}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <strong th:text="#{admin.usuario.telefono}">
+                                    Teléfono:
+                                </strong>
+
+                                <span th:if="${usuario.telefono != null
+                                      and !usuario.telefono.isEmpty()}"
+                                      th:text="${usuario.telefono}">
+                                </span>
+
+                                <span th:unless="${usuario.telefono != null
+                                      and !usuario.telefono.isEmpty()}"
+                                      th:text="#{admin.usuario.noRegistrado}">
+                                    No registrado
+                                </span>
+
+                            </p>
+
+                            <hr>
+
+                            <div class="d-grid gap-2">
+
+                                <a th:href="@{/admin/usuario/estado/{id}
+                                   (id=${usuario.idUsuario})}"
+                                   th:class="${usuario.activo
+                                   ? 'btn btn-outline-warning'
+                                   : 'btn btn-outline-success'}"
+                                   th:onclick="'return confirm(\'' + #{admin.usuario.confirmarEstado} + '\');'">
+
+                                    <span th:if="${usuario.activo}">
+
+                                        <i class="fas fa-user-slash me-1"></i>
+
+                                        <span th:text="#{admin.usuario.desactivar}">
+                                            Desactivar Usuario
+                                        </span>
+
+                                    </span>
+
+                                    <span th:unless="${usuario.activo}">
+
+                                        <i class="fas fa-user-check me-1"></i>
+
+                                        <span th:text="#{admin.usuario.activar}">
+                                            Activar Usuario
+                                        </span>
+
+                                    </span>
+
+                                </a>
+
+                                <a th:href="@{/admin/usuario/eliminar/{id}
+                                   (id=${usuario.idUsuario})}"
+                                   class="btn btn-danger"
+                                   th:onclick="'return confirm(\'' + #{admin.usuario.confirmarEliminar} + '\');'">
+
+                                    <i class="fas fa-trash me-1"></i>
+
+                                    <span th:text="#{admin.usuario.eliminar}">
+                                        Eliminar Usuario
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-7">
+
+                    <div class="card shadow mb-4">
+
+                        <div class="card-header
+                             bg-dark
+                             text-white">
+
+                            <h5 class="mb-0">
+
+                                <i class="fas fa-user-shield me-2"></i>
+
+                                <span th:text="#{admin.usuario.rolesActuales}">
+                                    Roles actuales
+                                </span>
+
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div th:if="${roles.empty}"
+                                 class="alert alert-warning mb-0"
+                                 th:text="#{admin.usuario.sinRoles}">
+                                Este usuario no tiene roles asignados.
+                            </div>
+
+                            <div class="list-group"
+                                 th:unless="${roles.empty}">
+
+                                <div th:each="r : ${roles}"
+                                     class="list-group-item
+                                     d-flex
+                                     justify-content-between
+                                     align-items-center">
+
+                                    <div>
+
+                                        <i class="fas fa-circle-check
+                                           text-success me-2">
+                                        </i>
+
+                                        <strong th:text="${#strings.replace(
+                                                r.nombre,
+                                                'ROLE_',
+                                                '')}">
+                                            USER
+                                        </strong>
+
+                                    </div>
+
+                                    <a th:href="@{/admin/usuario/eliminarRol/{id}/{rol}
+                                       (id=${usuario.idUsuario},
+                                       rol=${#strings.replace(r.nombre,'ROLE_','')})}"
+                                       class="btn
+                                       btn-outline-danger
+                                       btn-sm"
+                                       th:onclick="'return confirm(\'' + #{admin.usuario.confirmarQuitarRol} + '\');'">
+
+                                        <i class="fas fa-trash me-1"></i>
+
+                                        <span th:text="#{admin.usuario.quitar}">
+                                            Quitar
+                                        </span>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card shadow">
+
+                        <div class="card-header
+                             bg-success
+                             text-white">
+
+                            <h5 class="mb-0">
+
+                                <i class="fas fa-plus-square me-2"></i>
+
+                                <span th:text="#{admin.usuario.rolesDisponibles}">
+                                    Roles disponibles
+                                </span>
+
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="list-group">
+
+                                <div class="list-group-item
+                                     d-flex
+                                     justify-content-between
+                                     align-items-center">
+
+                                    <div>
+
+                                        <strong>USER</strong>
+
+                                        <div class="text-muted small"
+                                             th:text="#{admin.usuario.userDescripcion}">
+                                            Acceso normal a las funciones
+                                            de FIDNESS.
+                                        </div>
+
+                                    </div>
+
+                                    <span th:if="${tieneUser}"
+                                          class="badge bg-secondary"
+                                          th:text="#{admin.usuario.asignado}">
+                                        Asignado
+                                    </span>
+
+                                    <a th:unless="${tieneUser}"
+                                       th:href="@{/admin/usuario/agregarRol/{id}/USER
+                                       (id=${usuario.idUsuario})}"
+                                       class="btn
+                                       btn-success
+                                       btn-sm">
+
+                                        <i class="fas fa-plus me-1"></i>
+
+                                        <span th:text="#{admin.usuario.agregar}">
+                                            Agregar
+                                        </span>
+
+                                    </a>
+
+                                </div>
+
+                                <div class="list-group-item
+                                     d-flex
+                                     justify-content-between
+                                     align-items-center">
+
+                                    <div>
+
+                                        <strong>ADMIN</strong>
+
+                                        <div class="text-muted small"
+                                             th:text="#{admin.usuario.adminDescripcion}">
+                                            Acceso al panel de
+                                            administración.
+                                        </div>
+
+                                    </div>
+
+                                    <span th:if="${tieneAdmin}"
+                                          class="badge bg-secondary"
+                                          th:text="#{admin.usuario.asignado}">
+                                        Asignado
+                                    </span>
+
+                                    <a th:unless="${tieneAdmin}"
+                                       th:href="@{/admin/usuario/agregarRol/{id}/ADMIN
+                                       (id=${usuario.idUsuario})}"
+                                       class="btn
+                                       btn-success
+                                       btn-sm">
+
+                                        <i class="fas fa-plus me-1"></i>
+
+                                        <span th:text="#{admin.usuario.agregar}">
+                                            Agregar
+                                        </span>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-8">
+
+                    <div class="card shadow">
+
+                        <div class="card-body p-5">
+
+                            <h2 class="titulo mb-4"
+                                th:text="${rutina.idRutina == null}
+                                ? #{rutina.nueva}
+                                : #{rutina.editarTitulo}">
+                                Nueva Rutina
+                            </h2>
+
+                            <form th:action="@{/rutina/guardar}"
+                                  th:object="${rutina}"
+                                  method="POST">
+
+                                <input type="hidden"
+                                       th:field="*{idRutina}"/>
+
+                                <div class="mb-3">
+
+                                    <label class="form-label"
+                                           th:text="#{rutina.nombre}">
+                                        Nombre
+                                    </label>
+
+                                    <input type="text"
+                                           class="form-control"
+                                           th:field="*{nombre}"
+                                           maxlength="60"
+                                           required/>
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <label class="form-label"
+                                           th:text="#{rutina.objetivo}">
+                                        Objetivo
+                                    </label>
+
+                                    <textarea
+                                        class="form-control"
+                                        th:field="*{objetivo}"
+                                        rows="3"
+                                        maxlength="100"
+                                        required>
+                                    </textarea>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <label class="form-label"
+                                               th:text="#{rutina.nivel}">
+                                            Nivel
+                                        </label>
+
+                                        <select class="form-select"
+                                                th:field="*{nivel}"
+                                                required>
+
+                                            <option value=""
+                                                    th:text="#{ejercicio.seleccionar}">
+                                                Seleccione
+                                            </option>
+
+                                            <option value="Principiante"
+                                                    th:text="#{rutina.nivel.principiante}">
+                                                Principiante
+                                            </option>
+
+                                            <option value="Intermedio"
+                                                    th:text="#{rutina.nivel.intermedio}">
+                                                Intermedio
+                                            </option>
+
+                                            <option value="Avanzado"
+                                                    th:text="#{rutina.nivel.avanzado}">
+                                                Avanzado
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <label class="form-label"
+                                               th:text="#{rutina.duracionMinutos}">
+                                            Duración en minutos
+                                        </label>
+
+                                        <input type="number"
+                                               class="form-control"
+                                               th:field="*{duracion}"
+                                               min="1"
+                                               required/>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-check
+                                     form-switch mb-4">
+
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        th:field="*{activo}"/>
+
+                                    <label
+                                        class="form-check-label"
+                                        th:text="#{rutina.estadoActivo}">
+
+                                        Rutina activa
+
+                                    </label>
+
+                                </div>
+
+                                <div class="d-flex gap-2">
+
+                                    <button type="submit"
+                                            class="btn btn-success">
+
+                                        <i class="fas fa-save me-1"></i>
+
+                                        <span th:text="#{accion.guardar}">
+                                            Guardar
+                                        </span>
+
+                                    </button>
+
+                                    <a th:href="@{/rutina/listado}"
+                                       class="btn
+                                       btn-outline-secondary"
+                                       th:text="#{accion.cancelar}">
+
+                                        Cancelar
+
+                                    </a>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

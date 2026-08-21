@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="mb-5">
+
+                <h1 class="titulo"
+                    th:text="#{admin.panel.titulo}">
+                    Panel de Administración
+                </h1>
+
+                <p class="text-muted"
+                   th:text="#{admin.panel.descripcion}">
+                    Administración general de FIDNESS.
+                </p>
+
+            </div>
+
+            <div class="row g-4 mb-5">
+
+                <div class="col-md-4">
+
+                    <div class="card shadow text-center h-100">
+
+                        <div class="card-body p-4">
+
+                            <i class="fas fa-dumbbell
+                               fa-3x text-primary mb-3">
+                            </i>
+
+                            <h2 th:text="${totalEjercicios}">
+                                0
+                            </h2>
+
+                            <p class="text-muted"
+                               th:text="#{admin.totalEjercicios}">
+                                Ejercicios registrados
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card shadow text-center h-100">
+
+                        <div class="card-body p-4">
+
+                            <i class="fas fa-users
+                               fa-3x text-success mb-3">
+                            </i>
+
+                            <h2 th:text="${totalClases}">
+                                0
+                            </h2>
+
+                            <p class="text-muted"
+                               th:text="#{admin.totalClases}">
+                                Clases registradas
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card shadow text-center h-100">
+
+                        <div class="card-body p-4">
+
+                            <i class="fas fa-user
+                               fa-3x text-warning mb-3">
+                            </i>
+
+                            <h2 th:text="${totalUsuarios}">
+                                0
+                            </h2>
+
+                            <p class="text-muted"
+                               th:text="#{admin.totalUsuarios}">
+                                Usuarios registrados
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-5 text-center">
+
+                            <i class="fas fa-dumbbell
+                               fa-4x text-primary mb-4">
+                            </i>
+
+                            <h3 th:text="#{admin.ejercicios.titulo}">
+                                Administrar Ejercicios
+                            </h3>
+
+                            <p class="text-muted"
+                               th:text="#{admin.ejercicios.descripcion}">
+                                Crear, editar y eliminar
+                                ejercicios del catálogo.
+                            </p>
+
+                            <a th:href="@{/ejercicio/listado}"
+                               class="btn btn-primary">
+
+                                <i class="fas fa-dumbbell me-1"></i>
+
+                                <span th:text="#{admin.ejercicios.boton}">
+                                    Gestionar Ejercicios
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-5 text-center">
+
+                            <i class="fas fa-calendar-days
+                               fa-4x text-success mb-4">
+                            </i>
+
+                            <h3 th:text="#{admin.clases.titulo}">
+                                Administrar Clases
+                            </h3>
+
+                            <p class="text-muted"
+                               th:text="#{admin.clases.descripcion}">
+                                Crear, editar y desactivar
+                                clases grupales.
+                            </p>
+
+                            <a th:href="@{/admin/clase/listado}"
+                               class="btn btn-success">
+
+                                <i class="fas fa-calendar-days me-1"></i>
+
+                                <span th:text="#{admin.clases.boton}">
+                                    Gestionar Clases
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-5 text-center">
+
+                            <i class="fas fa-users-cog
+                               fa-4x text-warning mb-4">
+                            </i>
+
+                            <h3 th:text="#{admin.usuarios.titulo}">
+                                Administrar Usuarios
+                            </h3>
+
+                            <p class="text-muted"
+                               th:text="#{admin.usuarios.descripcion}">
+                                Consultar usuarios, administrar
+                                roles y controlar sus cuentas.
+                            </p>
+
+                            <a th:href="@{/admin/usuario/listado}"
+                               class="btn btn-warning">
+
+                                <i class="fas fa-users me-1"></i>
+
+                                <span th:text="#{admin.usuarios.boton}">
+                                    Gestionar Usuarios
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

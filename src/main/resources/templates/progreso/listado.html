@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="d-flex justify-content-between
+                 align-items-center mb-4">
+
+                <div>
+
+                    <h1 class="titulo"
+                        th:text="#{progreso.listado.titulo}">
+                        Mi Progreso
+                    </h1>
+
+                    <p class="text-muted"
+                       th:text="#{progreso.listado.descripcion}">
+                        Consulta la evolución de tus
+                        medidas y entrenamiento.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/progreso/nuevo}"
+                   class="btn btn-success">
+
+                    <i class="fas fa-plus me-1"></i>
+
+                    <span th:text="#{progreso.nuevo}">
+                        Nuevo Registro
+                    </span>
+
+                </a>
+
+            </div>
+
+            <div th:if="${param.guardado}"
+                 class="alert alert-success"
+                 th:text="#{progreso.guardado}">
+                Progreso registrado correctamente.
+            </div>
+
+            <div th:if="${param.eliminado}"
+                 class="alert alert-success"
+                 th:text="#{progreso.eliminado}">
+                Registro eliminado correctamente.
+            </div>
+
+            <div th:if="${progresos == null
+                 or progresos.empty}"
+                 class="alert alert-info"
+                 th:text="#{progreso.sinRegistros}">
+                Aún no tienes registros de progreso.
+            </div>
+
+            <div class="card shadow"
+                 th:if="${progresos != null
+                 and !progresos.empty}">
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table
+                               table-hover
+                               align-middle">
+
+                            <thead class="table-dark">
+
+                                <tr>
+
+                                    <th th:text="#{progreso.fecha}">
+                                        Fecha
+                                    </th>
+
+                                    <th th:text="#{progreso.peso}">
+                                        Peso
+                                    </th>
+
+                                    <th th:text="#{progreso.cintura}">
+                                        Cintura
+                                    </th>
+
+                                    <th th:text="#{progreso.pecho}">
+                                        Pecho
+                                    </th>
+
+                                    <th th:text="#{progreso.brazo}">
+                                        Brazo
+                                    </th>
+
+                                    <th th:text="#{progreso.pierna}">
+                                        Pierna
+                                    </th>
+
+                                    <th th:text="#{progreso.observaciones}">
+                                        Observaciones
+                                    </th>
+
+                                    <th></th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr th:each="p : ${progresos}">
+
+                                    <td th:text="${#temporals.format(
+                                        p.fecha,
+                                        'dd/MM/yyyy')}">
+                                    </td>
+
+                                    <td>
+                                        <strong th:text="${p.peso}">
+                                        </strong>
+                                        kg
+                                    </td>
+
+                                    <td th:text="${p.cintura != null
+                                        ? p.cintura + ' cm'
+                                        : '-'}">
+                                    </td>
+
+                                    <td th:text="${p.pecho != null
+                                        ? p.pecho + ' cm'
+                                        : '-'}">
+                                    </td>
+
+                                    <td th:text="${p.brazo != null
+                                        ? p.brazo + ' cm'
+                                        : '-'}">
+                                    </td>
+
+                                    <td th:text="${p.pierna != null
+                                        ? p.pierna + ' cm'
+                                        : '-'}">
+                                    </td>
+
+                                    <td th:text="${p.observaciones}">
+                                    </td>
+
+                                    <td>
+
+                                        <a th:href="@{/progreso/eliminar/{id}(id=${p.idProgreso})}"
+                                           class="btn
+                                           btn-outline-danger
+                                           btn-sm"
+                                           th:onclick="'return confirm(\'' + #{progreso.confirmarEliminar} + '\');'">
+
+                                            <i class="fas fa-trash">
+                                            </i>
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

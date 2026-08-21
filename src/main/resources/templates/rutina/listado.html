@@ -11,30 +11,44 @@
 
         <div class="container mt-5">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between
+                 align-items-center mb-4">
 
                 <div>
 
-                    <h2 class="titulo">
-
+                    <h2 class="titulo"
+                        th:text="#{rutina.misRutinas}">
                         Mis Rutinas
-
                     </h2>
 
-                    <p class="text-muted">
-
-                        Organiza tus entrenamientos y crea planes personalizados.
-
+                    <p class="text-muted"
+                       th:text="#{rutina.descripcion}">
+                        Organiza tus entrenamientos
+                        y crea planes personalizados.
                     </p>
 
                 </div>
 
-                <a class="btn btn-success disabled"
-                   aria-disabled="true">
+                <a th:href="@{/rutina/nuevo}"
+                   class="btn btn-success">
 
-                    Nueva Rutina
+                    <i class="fas fa-plus me-1"></i>
+
+                    <span th:text="#{rutina.nueva}">
+                        Nueva Rutina
+                    </span>
 
                 </a>
+
+            </div>
+
+            <div th:if="${rutinas == null
+                 or rutinas.empty}"
+                 class="alert alert-info"
+                 th:text="#{rutina.sinRutinas}">
+
+                Todavía no tienes rutinas.
+                Crea tu primera rutina personalizada.
 
             </div>
 
@@ -47,76 +61,96 @@
 
                         <div class="card-body">
 
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex
+                                 justify-content-between">
 
-                                <h4>
-
-                                    [[${r.nombre}]]
-
+                                <h4 th:text="${r.nombre}">
                                 </h4>
 
-                                <span
-                                    class="badge bg-success"
-                                    th:if="${r.activo}">
-
+                                <span class="badge bg-success"
+                                      th:if="${r.activo}"
+                                      th:text="#{rutina.activa}">
                                     Activa
-
                                 </span>
 
-                                <span
-                                    class="badge bg-danger"
-                                    th:unless="${r.activo}">
-
+                                <span class="badge bg-secondary"
+                                      th:unless="${r.activo}"
+                                      th:text="#{rutina.inactiva}">
                                     Inactiva
-
                                 </span>
 
                             </div>
 
-                            <hr>
+                            <hr/>
 
                             <p>
-
-                                <strong>Objetivo</strong>
-
+                                <strong th:text="#{rutina.objetivo}">
+                                    Objetivo
+                                </strong>
                             </p>
 
-                            <p class="text-muted">
-
-                                [[${r.objetivo}]]
-
+                            <p class="text-muted"
+                               th:text="${r.objetivo}">
                             </p>
 
-                            <div class="row text-center mt-4">
+                            <div class="row
+                                 text-center mt-4">
 
                                 <div class="col">
 
-                                    <h4 class="text-primary">
+                                    <div th:switch="${r.nivel}">
 
-                                        [[${r.nivel}]]
+                                        <h4 class="text-primary"
+                                            th:case="'Principiante'"
+                                            th:text="#{rutina.nivel.principiante}">
+                                            Principiante
+                                        </h4>
 
-                                    </h4>
+                                        <h4 class="text-primary"
+                                            th:case="'Intermedio'"
+                                            th:text="#{rutina.nivel.intermedio}">
+                                            Intermedio
+                                        </h4>
 
-                                    <small>
+                                        <h4 class="text-primary"
+                                            th:case="'Avanzado'"
+                                            th:text="#{rutina.nivel.avanzado}">
+                                            Avanzado
+                                        </h4>
 
+                                        <h4 class="text-primary"
+                                            th:case="*"
+                                            th:text="${r.nivel}">
+                                        </h4>
+
+                                    </div>
+
+                                    <small th:text="#{rutina.nivel}">
                                         Nivel
-
                                     </small>
 
                                 </div>
 
                                 <div class="col">
 
-                                    <h4 class="text-success">
-
-                                        [[${r.duracion}]]
-
+                                    <h4 class="text-success"
+                                        th:text="${r.duracion}">
                                     </h4>
 
-                                    <small>
-
+                                    <small th:text="#{rutina.minutos}">
                                         Minutos
+                                    </small>
 
+                                </div>
+
+                                <div class="col">
+
+                                    <h4 class="text-dark"
+                                        th:text="${r.ejercicios.size()}">
+                                    </h4>
+
+                                    <small th:text="#{rutina.ejercicios}">
+                                        Ejercicios
                                     </small>
 
                                 </div>
@@ -125,28 +159,53 @@
 
                         </div>
 
-                        <div class="card-footer bg-white border-0">
+                        <div class="card-footer
+                             bg-white border-0">
 
                             <div class="d-grid gap-2">
 
                                 <a th:href="@{/rutina/detalle/{id}(id=${r.idRutina})}"
                                    class="btn btn-primary">
 
-                                    Ver Rutina
+                                    <i class="fas fa-eye me-1"></i>
+
+                                    <span th:text="#{rutina.ver}">
+                                        Ver Rutina
+                                    </span>
 
                                 </a>
 
-                                <a href="#"
+                                <a th:href="@{/rutina/editar/{id}(id=${r.idRutina})}"
                                    class="btn btn-warning">
 
-                                    Editar
+                                    <i class="fas fa-pencil me-1"></i>
+
+                                    <span th:text="#{rutina.editar}">
+                                        Editar
+                                    </span>
 
                                 </a>
 
-                                <a href="#"
-                                   class="btn btn-outline-danger">
+                                <a th:href="@{/rutina/exportar/{id}(id=${r.idRutina})}"
+                                   class="btn btn-outline-success">
 
-                                    Eliminar
+                                    <i class="fas fa-file-pdf me-1"></i>
+
+                                    <span th:text="#{rutina.exportar}">
+                                        Exportar PDF
+                                    </span>
+
+                                </a>
+
+                                <a th:href="@{/rutina/eliminar/{id}(id=${r.idRutina})}"
+                                   class="btn btn-outline-danger"
+                                   th:onclick="'return confirm(\'' + #{rutina.confirmarEliminar} + '\');'">
+
+                                    <i class="fas fa-trash me-1"></i>
+
+                                    <span th:text="#{rutina.eliminar}">
+                                        Eliminar
+                                    </span>
 
                                 </a>
 

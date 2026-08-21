@@ -9,131 +9,103 @@
         <header th:replace="~{general/fragmentos :: header}">
         </header>
 
-        <div class="container mt-5">
+        <div class="container py-5">
 
-            <div class="row">
+            <div class="card shadow mb-4">
 
-                <div class="col-lg-8">
+                <div class="card-header
+                     bg-primary text-white">
 
-                    <div class="card shadow">
+                    <div class="d-flex
+                         justify-content-between
+                         align-items-center">
 
-                        <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"
+                            th:text="${rutina.nombre}">
+                        </h3>
 
-                            <h3>
-
-                                [[${rutina.nombre}]]
-
-                            </h3>
-
-                        </div>
-
-                        <div class="card-body">
-
-                            <h5 class="text-success">
-
-                                Objetivo
-
-                            </h5>
-
-                            <p>
-
-                                [[${rutina.objetivo}]]
-
-                            </p>
-
-                            <hr>
-
-                            <div class="row text-center">
-
-                                <div class="col-md-4">
-
-                                    <h3 class="text-primary">
-
-                                        [[${rutina.nivel}]]
-
-                                    </h3>
-
-                                    <small>
-
-                                        Nivel
-
-                                    </small>
-
-                                </div>
-
-                                <div class="col-md-4">
-
-                                    <h3 class="text-success">
-
-                                        [[${rutina.duracion}]]
-
-                                    </h3>
-
-                                    <small>
-
-                                        Minutos
-
-                                    </small>
-
-                                </div>
-
-                                <div class="col-md-4">
-
-                                    <span
-                                        class="badge bg-success fs-6"
-                                        th:if="${rutina.activo}">
-
-                                        Activa
-
-                                    </span>
-
-                                    <span
-                                        class="badge bg-danger fs-6"
-                                        th:unless="${rutina.activo}">
-
-                                        Inactiva
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                        <span class="badge bg-success"
+                              th:if="${rutina.activo}"
+                              th:text="#{rutina.activa}">
+                            Activa
+                        </span>
 
                     </div>
 
                 </div>
 
-                <div class="col-lg-4">
+                <div class="card-body">
 
-                    <div class="card shadow">
+                    <p>
 
-                        <div class="card-header bg-success text-white">
+                        <strong th:text="#{rutina.objetivo}">
+                            Objetivo
+                        </strong>
 
-                            <h4>
+                        <strong>:</strong>
 
-                                Acciones
+                        <span th:text="${rutina.objetivo}">
+                        </span>
 
-                            </h4>
+                    </p>
+
+                    <div class="row text-center">
+
+                        <div class="col-md-4">
+
+                            <div th:switch="${rutina.nivel}">
+
+                                <h4 class="text-primary"
+                                    th:case="'Principiante'"
+                                    th:text="#{rutina.nivel.principiante}">
+                                    Principiante
+                                </h4>
+
+                                <h4 class="text-primary"
+                                    th:case="'Intermedio'"
+                                    th:text="#{rutina.nivel.intermedio}">
+                                    Intermedio
+                                </h4>
+
+                                <h4 class="text-primary"
+                                    th:case="'Avanzado'"
+                                    th:text="#{rutina.nivel.avanzado}">
+                                    Avanzado
+                                </h4>
+
+                                <h4 class="text-primary"
+                                    th:case="*"
+                                    th:text="${rutina.nivel}">
+                                </h4>
+
+                            </div>
+
+                            <small th:text="#{rutina.nivel}">
+                                Nivel
+                            </small>
 
                         </div>
 
-                        <div class="card-body d-grid gap-2">
+                        <div class="col-md-4">
 
-                            <a href="#"
-                               class="btn btn-success">
+                            <h4 class="text-success"
+                                th:text="${rutina.duracion}">
+                            </h4>
 
-                                Editar Rutina
+                            <small th:text="#{rutina.minutos}">
+                                Minutos
+                            </small>
 
-                            </a>
+                        </div>
 
-                            <a th:href="@{/rutina/listado}"
-                               class="btn btn-outline-secondary">
+                        <div class="col-md-4">
 
-                                Volver
+                            <h4 th:text="${rutina.ejercicios.size()}">
+                            </h4>
 
-                            </a>
+                            <small th:text="#{rutina.ejercicios}">
+                                Ejercicios
+                            </small>
 
                         </div>
 
@@ -143,80 +115,131 @@
 
             </div>
 
-            <br>
 
-            <div class="card shadow">
+            <div class="d-flex gap-2 mb-4">
 
-                <div class="card-header bg-dark text-white">
+                <a th:href="@{/rutina/editar/{id}(id=${rutina.idRutina})}"
+                   class="btn btn-warning">
 
-                    <h4>
+                    <span th:text="#{rutina.editarRutina}">
+                        Editar Rutina
+                    </span>
 
-                        Ejercicios Recomendados
+                </a>
 
+                <a th:href="@{/rutina/exportar/{id}(id=${rutina.idRutina})}"
+                   class="btn btn-outline-success">
+
+                    <i class="fas fa-file-pdf me-1"></i>
+
+                    <span th:text="#{rutina.exportar}">
+                        Exportar PDF
+                    </span>
+
+                </a>
+
+                <a th:href="@{/rutina/listado}"
+                   class="btn btn-outline-secondary"
+                   th:text="#{rutina.volver}">
+
+                    Volver
+
+                </a>
+
+            </div>
+
+
+            <div class="card shadow mb-5">
+
+                <div class="card-header
+                     bg-dark text-white">
+
+                    <h4 class="mb-0"
+                        th:text="#{rutina.detalle.ejercicios}">
+                        Ejercicios de la Rutina
                     </h4>
 
                 </div>
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <div th:if="${rutina.ejercicios.empty}"
+                         class="alert alert-info"
+                         th:text="#{rutina.detalle.sinEjercicios}">
 
-                        <div class="col-md-6 col-lg-3 mb-4"
-                             th:each="e : ${ejercicios}">
+                        Esta rutina todavía no tiene ejercicios.
+
+                    </div>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6 col-lg-4"
+                             th:each="e : ${rutina.ejercicios}">
 
                             <div class="card h-100 shadow-sm">
 
                                 <img th:src="${e.imagen}"
                                      class="card-img-top"
-                                     style="height:180px;object-fit:cover;">
+                                     style="
+                                     height:200px;
+                                     object-fit:cover;
+                                     "/>
 
                                 <div class="card-body">
 
-                                    <h5>
-
-                                        [[${e.nombre}]]
-
+                                    <h5 th:text="${e.nombre}">
                                     </h5>
 
-                                    <span class="badge bg-primary">
-
-                                        [[${e.grupoMuscular}]]
-
+                                    <span class="badge bg-primary"
+                                          th:text="${e.grupoMuscular}">
                                     </span>
 
-                                    <span class="badge bg-success">
-
-                                        [[${e.nivel}]]
-
+                                    <span class="badge bg-success"
+                                          th:text="${e.nivel}">
                                     </span>
 
-                                    <hr>
+                                    <hr/>
 
-                                    <small>
+                                    <p class="mb-1">
 
-                                        [[${e.series}]] series
+                                        <strong th:text="#{ejercicio.series}">
+                                            Series
+                                        </strong>
 
-                                    </small>
+                                        <strong>:</strong>
 
-                                    <br>
+                                        <span th:text="${e.series}">
+                                        </span>
 
-                                    <small>
+                                    </p>
 
-                                        [[${e.repeticiones}]] repeticiones
+                                    <p>
 
-                                    </small>
+                                        <strong th:text="#{ejercicio.repeticiones}">
+                                            Repeticiones
+                                        </strong>
+
+                                        <strong>:</strong>
+
+                                        <span th:text="${e.repeticiones}">
+                                        </span>
+
+                                    </p>
 
                                 </div>
 
-                                <div class="card-footer bg-white border-0">
+                                <div class="card-footer
+                                     bg-white">
 
-                                    <button
-                                        class="btn btn-outline-success w-100"
-                                        disabled>
+                                    <a th:href="@{/rutina/eliminarEjercicio/{rutina}/{ejercicio}(rutina=${rutina.idRutina},ejercicio=${e.idEjercicio})}"
+                                       class="btn
+                                       btn-outline-danger
+                                       w-100"
+                                       th:text="#{rutina.detalle.quitar}">
 
-                                        Agregar a Rutina
+                                        Quitar de Rutina
 
-                                    </button>
+                                    </a>
 
                                 </div>
 
@@ -225,6 +248,82 @@
                         </div>
 
                     </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card shadow">
+
+                <div class="card-header
+                     bg-success text-white">
+
+                    <h4 class="mb-0"
+                        th:text="#{rutina.agregar.titulo}">
+                        Agregar Ejercicio
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form th:action="@{/rutina/agregarEjercicio}"
+                          method="POST">
+
+                        <input type="hidden"
+                               name="idRutina"
+                               th:value="${rutina.idRutina}"/>
+
+                        <div class="row align-items-end">
+
+                            <div class="col-md-9">
+
+                                <label class="form-label"
+                                       th:text="#{rutina.agregar.seleccionar}">
+                                    Seleccione un ejercicio
+                                </label>
+
+                                <select name="idEjercicio"
+                                        class="form-select"
+                                        required>
+
+                                    <option value=""
+                                            th:text="#{rutina.agregar.opcion}">
+                                        Seleccione
+                                    </option>
+
+                                    <option
+                                        th:each="e : ${ejerciciosDisponibles}"
+                                        th:value="${e.idEjercicio}"
+                                        th:text="${e.nombre
+                                        + ' - '
+                                        + e.grupoMuscular
+                                        + ' - '
+                                        + e.nivel}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <button type="submit"
+                                        class="btn
+                                        btn-success
+                                        w-100"
+                                        th:text="#{rutina.agregar.boton}">
+
+                                    Agregar
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
 
                 </div>
 

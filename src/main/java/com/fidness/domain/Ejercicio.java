@@ -33,6 +33,12 @@ public class Ejercicio implements Serializable {
     @Column(nullable = false, length = 300)
     private String descripcion;
 
+    @Column(length = 1000)
+    private String instrucciones;
+
+    @Column(length = 1000)
+    private String recomendaciones;
+
     @NotNull
     @Size(max = 40)
     @Column(name = "grupo_muscular", nullable = false, length = 40)
@@ -42,6 +48,11 @@ public class Ejercicio implements Serializable {
     @Size(max = 20)
     @Column(nullable = false, length = 20)
     private String nivel;
+
+    @NotNull
+    @Size(max = 40)
+    @Column(name = "tipo_entrenamiento", nullable = false, length = 40)
+    private String tipoEntrenamiento;
 
     @NotNull
     @Column(nullable = false)
@@ -57,5 +68,4 @@ public class Ejercicio implements Serializable {
 
     @Column(nullable = false)
     private boolean activo;
-
 }

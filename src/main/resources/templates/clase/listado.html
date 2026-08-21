@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="d-flex
+                 justify-content-between
+                 align-items-center
+                 mb-4">
+
+                <div>
+
+                    <h1 class="titulo"
+                        th:text="#{clase.listado.titulo}">
+                        Clases Grupales
+                    </h1>
+
+                    <p class="text-muted"
+                       th:text="#{clase.listado.descripcion}">
+                        Reserva tu espacio y entrena
+                        acompañado.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/reserva/misReservas}"
+                   sec:authorize="isAuthenticated()"
+                   class="btn btn-outline-primary">
+
+                    <i class="fas fa-calendar-check me-1"></i>
+
+                    <span th:text="#{clase.misReservas}">
+                        Mis Reservas
+                    </span>
+
+                </a>
+
+            </div>
+
+            <div th:if="${param.reservado}"
+                 class="alert alert-success">
+
+                <i class="fas fa-circle-check me-2"></i>
+
+                <span th:text="#{clase.reservada}">
+                    Clase reservada correctamente.
+                </span>
+
+            </div>
+
+            <div th:if="${param.sinCupo}"
+                 class="alert alert-warning">
+
+                <i class="fas fa-triangle-exclamation me-2"></i>
+
+                <span th:text="#{clase.sinCupoMensaje}">
+                    No fue posible realizar la reserva.
+                    La clase puede estar llena o ya tienes
+                    una reserva activa.
+                </span>
+
+            </div>
+
+            <div th:if="${clases == null or clases.empty}"
+                 class="alert alert-info"
+                 th:text="#{clase.sinResultados}">
+
+                Actualmente no hay clases grupales disponibles.
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6"
+                     th:each="c : ${clases}">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex
+                                 justify-content-between
+                                 align-items-start
+                                 mb-3">
+
+                                <h3 th:text="${c.nombre}">
+                                    Clase
+                                </h3>
+
+                                <span th:if="${cuposDisponibles[c.idClase] > 0}"
+                                      class="badge bg-success">
+
+                                    <i class="fas fa-circle-check me-1"></i>
+
+                                    <span th:text="#{clase.disponible}">
+                                        Disponible
+                                    </span>
+
+                                </span>
+
+                                <span th:if="${cuposDisponibles[c.idClase] == 0}"
+                                      class="badge bg-danger">
+
+                                    <i class="fas fa-circle-xmark me-1"></i>
+
+                                    <span th:text="#{clase.llena}">
+                                        Clase llena
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <p class="text-muted"
+                               th:text="${c.descripcion}">
+                            </p>
+
+                            <hr/>
+
+                            <p>
+
+                                <i class="fas fa-user
+                                   text-primary
+                                   me-2">
+                                </i>
+
+                                <strong th:text="#{clase.instructor}">
+                                    Instructor
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${c.instructor}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <i class="fas fa-calendar
+                                   text-primary
+                                   me-2">
+                                </i>
+
+                                <strong th:text="#{clase.fecha}">
+                                    Fecha
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${#temporals.format(
+                                      c.fecha,
+                                      'dd/MM/yyyy')}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <i class="fas fa-clock
+                                   text-primary
+                                   me-2">
+                                </i>
+
+                                <strong th:text="#{clase.hora}">
+                                    Hora
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${#temporals.format(
+                                      c.hora,
+                                      'HH:mm')}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <i class="fas fa-hourglass-half
+                                   text-success
+                                   me-2">
+                                </i>
+
+                                <strong th:text="#{clase.duracion}">
+                                    Duración
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${c.duracion}">
+                                </span>
+
+                                <span th:text="#{clase.minutos}">
+                                    minutos
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <i class="fas fa-users
+                                   text-success
+                                   me-2">
+                                </i>
+
+                                <strong th:text="#{clase.capacidad}">
+                                    Capacidad
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${c.capacidad}">
+                                </span>
+
+                                <span th:text="#{clase.personas}">
+                                    personas
+                                </span>
+
+                            </p>
+
+                            <div class="mt-4">
+
+                                <div class="d-flex
+                                     justify-content-between
+                                     align-items-center
+                                     mb-2">
+
+                                    <strong th:text="#{clase.cupos}">
+                                        Cupos disponibles
+                                    </strong>
+
+                                    <span th:if="${cuposDisponibles[c.idClase] > 0}"
+                                          class="badge bg-success fs-6"
+                                          th:text="${cuposDisponibles[c.idClase]}">
+
+                                        0
+
+                                    </span>
+
+                                    <span th:if="${cuposDisponibles[c.idClase] == 0}"
+                                          class="badge bg-danger"
+                                          th:text="#{clase.sinCupos}">
+
+                                        Sin cupos
+
+                                    </span>
+
+                                </div>
+
+                                <div class="progress"
+                                     style="height:10px;">
+
+                                    <div class="progress-bar bg-success"
+                                         role="progressbar"
+                                         th:style="'width: '
+                                         + ${(cuposDisponibles[c.idClase] * 100) / c.capacidad}
+                                         + '%'">
+                                    </div>
+
+                                </div>
+
+                                <small class="text-muted">
+
+                                    <span th:text="${c.capacidad - cuposDisponibles[c.idClase]}">
+                                        0
+                                    </span>
+
+                                    <span> / </span>
+
+                                    <span th:text="${c.capacidad}">
+                                        0
+                                    </span>
+
+                                    <span th:text="#{clase.espaciosReservados}">
+                                        espacios reservados.
+                                    </span>
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer
+                             bg-white
+                             border-0
+                             pb-4">
+
+                            <div class="d-grid"
+                                 sec:authorize="isAuthenticated()"
+                                 th:if="${cuposDisponibles[c.idClase] > 0}">
+
+                                <a th:href="@{/clase/reservar/{id}(id=${c.idClase})}"
+                                   class="btn btn-success">
+
+                                    <i class="fas fa-calendar-plus me-1"></i>
+
+                                    <span th:text="#{clase.reservar}">
+                                        Reservar espacio
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                            <div class="d-grid"
+                                 sec:authorize="isAuthenticated()"
+                                 th:if="${cuposDisponibles[c.idClase] == 0}">
+
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        disabled>
+
+                                    <i class="fas fa-ban me-1"></i>
+
+                                    <span th:text="#{clase.llena}">
+                                        Clase llena
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+                            <div sec:authorize="isAnonymous()"
+                                 th:if="${cuposDisponibles[c.idClase] > 0}"
+                                 class="d-grid">
+
+                                <a th:href="@{/login}"
+                                   class="btn btn-outline-success">
+
+                                    <i class="fas fa-right-to-bracket me-1"></i>
+
+                                    <span th:text="#{clase.loginReservar}">
+                                        Inicia sesión para reservar
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                            <div sec:authorize="isAnonymous()"
+                                 th:if="${cuposDisponibles[c.idClase] == 0}"
+                                 class="d-grid">
+
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        disabled
+                                        th:text="#{clase.sinCuposDisponibles}">
+
+                                    Clase sin cupos disponibles
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

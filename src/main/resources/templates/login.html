@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="UTF-8"/>
+
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0"/>
+
+        <title th:text="#{login.tituloPagina}">
+            Iniciar sesión | FIDNESS
+        </title>
+
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+              rel="stylesheet"/>
+
+        <link th:href="@{/webjars/font-awesome/css/all.css}"
+              rel="stylesheet"/>
+
+        <style>
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                background: #f8f5ef;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .login-wrapper {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 30px;
+            }
+
+            .login-box {
+                width: 100%;
+                max-width: 1180px;
+                background: #ffffff;
+                border-radius: 28px;
+                overflow: hidden;
+                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+            }
+
+            .login-image-area {
+                position: relative;
+                min-height: 680px;
+                background: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 45px;
+            }
+
+            .image-decoration {
+                position: absolute;
+                width: calc(100% - 80px);
+                height: 72%;
+                background: #1d837c;
+                border-radius: 28px;
+                transform: translate(-12px, 18px);
+            }
+
+            .login-image {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                height: 500px;
+                object-fit: cover;
+                border-radius: 24px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            }
+
+            .form-area {
+                min-height: 680px;
+                display: flex;
+                align-items: center;
+                padding: 55px 65px;
+            }
+
+            .form-content {
+                width: 100%;
+            }
+
+            .brand-icon {
+                width: 78px;
+                height: 78px;
+                margin: 0 auto 10px auto;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #0d6efd, #198754);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 34px;
+                box-shadow: 0 8px 20px rgba(25, 135, 84, 0.25);
+            }
+
+            .brand-title {
+                font-size: 2.3rem;
+                font-weight: 800;
+                letter-spacing: 2px;
+                color: #198754;
+                margin-bottom: 6px;
+            }
+
+            .login-title {
+                color: #237b74;
+                font-weight: 700;
+                margin-top: 25px;
+                margin-bottom: 30px;
+            }
+
+            .form-label {
+                font-weight: 600;
+                color: #237b74;
+            }
+
+            .form-control {
+                border: none;
+                border-bottom: 2px solid #bbb;
+                border-radius: 0;
+                padding-left: 0;
+                background: transparent;
+            }
+
+            .form-control:focus {
+                box-shadow: none;
+                border-bottom-color: #198754;
+                background: transparent;
+            }
+
+            .input-group-text {
+                border: none;
+                border-bottom: 2px solid #bbb;
+                border-radius: 0;
+                background: transparent;
+                color: #198754;
+            }
+
+            .btn-fidness {
+                background: #1d837c;
+                color: white;
+                border-radius: 25px;
+                padding: 11px 26px;
+                font-weight: 700;
+                border: none;
+                min-width: 170px;
+            }
+
+            .btn-fidness:hover {
+                background: #176d67;
+                color: white;
+            }
+
+            .link-fidness {
+                color: #237b74;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .link-fidness:hover {
+                text-decoration: underline;
+            }
+
+            .crear-cuenta {
+                margin-top: 35px;
+                padding-top: 25px;
+                border-top: 1px solid #e5e5e5;
+            }
+
+            .alert {
+                border-radius: 14px;
+            }
+
+            @media (max-width: 991px) {
+
+                .login-image-area {
+                    min-height: auto;
+                    padding: 25px;
+                }
+
+                .image-decoration {
+                    display: none;
+                }
+
+                .login-image {
+                    height: 300px;
+                }
+
+                .form-area {
+                    min-height: auto;
+                    padding: 40px 30px;
+                }
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="login-wrapper">
+
+            <div class="login-box">
+
+                <div class="row g-0">
+
+                    <div class="col-lg-7 login-image-area">
+
+                        <div class="image-decoration">
+                        </div>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200"
+                            th:alt="#{login.imagenAlt}"
+                            class="login-image"/>
+
+                    </div>
+
+                    <div class="col-lg-5 form-area">
+
+                        <div class="form-content">
+
+                            <div class="text-center">
+
+                                <div class="brand-icon">
+
+                                    <i class="fas fa-dumbbell"></i>
+
+                                </div>
+
+                                <div class="brand-title">
+                                    FIDNESS
+                                </div>
+
+                                <h3 class="login-title"
+                                    th:text="#{login.titulo}">
+                                    Inicio de Sesión
+                                </h3>
+
+                            </div>
+
+                            <div th:if="${param.error}"
+                                 class="alert alert-danger"
+                                 th:text="#{login.error}">
+                                Error
+                            </div>
+
+                            <div th:if="${param.logout}"
+                                 class="alert alert-success"
+                                 th:text="#{login.logout}">
+                                Has cerrado sesión correctamente.
+                            </div>
+
+                            <div th:if="${param.correoEnviado}"
+                                 class="alert alert-info"
+                                 th:text="#{login.correoEnviado}">
+                                Cuenta registrada.
+                            </div>
+
+                            <div th:if="${param.activado}"
+                                 class="alert alert-success"
+                                 th:text="#{login.activado}">
+                                Cuenta activada correctamente.
+                            </div>
+
+                            <div th:if="${param.activacionError}"
+                                 class="alert alert-danger"
+                                 th:text="#{login.activacionError}">
+                                El enlace de activación no es válido.
+                            </div>
+
+                            <div th:if="${param.passwordActualizado}"
+                                 class="alert alert-success"
+                                 th:text="#{login.passwordActualizado}">
+                                Contraseña actualizada.
+                            </div>
+
+                            <div th:if="${param.recuperacionError}"
+                                 class="alert alert-danger"
+                                 th:text="#{login.recuperacionError}">
+                                Enlace de recuperación inválido.
+                            </div>
+
+                            <form th:action="@{/login}"
+                                  method="POST">
+
+                                <div class="mb-4">
+
+                                    <label for="correo"
+                                           class="form-label"
+                                           th:text="#{login.correo}">
+                                        Correo electrónico
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+
+                                        <input type="email"
+                                               id="correo"
+                                               name="correo"
+                                               class="form-control"
+                                               th:placeholder="#{login.correoPlaceholder}"
+                                               required/>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <label for="password"
+                                           class="form-label"
+                                           th:text="#{login.password}">
+                                        Contraseña
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+
+                                        <input type="password"
+                                               id="password"
+                                               name="password"
+                                               class="form-control"
+                                               th:placeholder="#{login.passwordPlaceholder}"
+                                               required/>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="d-flex
+                                     justify-content-between
+                                     align-items-center
+                                     mb-4">
+
+                                    <div class="form-check">
+
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               id="recordarme"
+                                               name="remember-me"/>
+
+                                        <label class="form-check-label"
+                                               for="recordarme"
+                                               th:text="#{login.recordarme}">
+                                            Recuérdame
+                                        </label>
+
+                                    </div>
+
+                                    <a th:href="@{/recuperar}"
+                                       class="link-fidness"
+                                       th:text="#{login.olvido}">
+                                        ¿Olvidaste tu contraseña?
+                                    </a>
+
+                                </div>
+
+                                <div class="text-center">
+
+                                    <button type="submit"
+                                            class="btn btn-fidness"
+                                            th:text="#{login.boton}">
+                                        Iniciar sesión
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                            <div class="crear-cuenta text-center">
+
+                                <h5 class="mb-3"
+                                    style="color:#237b74; font-weight:700;"
+                                    th:text="#{login.sinCuenta}">
+                                    ¿No tienes una cuenta todavía?
+                                </h5>
+
+                                <a th:href="@{/registro}"
+                                   class="btn btn-outline-success rounded-pill px-4">
+
+                                    <i class="fas fa-user-plus me-1"></i>
+
+                                    <span th:text="#{login.crearCuenta}">
+                                        Crear cuenta
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                            <div class="text-center mt-4">
+
+                                <a th:href="@{/}"
+                                   class="text-muted text-decoration-none">
+
+                                    <i class="fas fa-arrow-left me-1"></i>
+
+                                    <span th:text="#{login.volver}">
+                                        Volver al inicio
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
+        </script>
+
+    </body>
+
+</html>

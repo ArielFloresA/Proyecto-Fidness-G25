@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="d-flex
+                 justify-content-between
+                 align-items-center
+                 mb-4">
+
+                <div>
+
+                    <h1 class="titulo"
+                        th:text="#{reserva.titulo}">
+                        Mis Reservas
+                    </h1>
+
+                    <p class="text-muted"
+                       th:text="#{reserva.descripcion}">
+                        Consulta las clases grupales
+                        que has reservado.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/clase/listado}"
+                   class="btn btn-success"
+                   th:text="#{reserva.nueva}">
+                    Nueva Reserva
+                </a>
+
+            </div>
+
+            <div th:if="${param.cancelada}"
+                 class="alert alert-success"
+                 th:text="#{reserva.cancelada}">
+                Reserva cancelada correctamente.
+            </div>
+
+            <div th:if="${reservas == null
+                 or reservas.empty}"
+                 class="alert alert-info"
+                 th:text="#{reserva.sinReservas}">
+                No tienes clases reservadas actualmente.
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6"
+                     th:each="r : ${reservas}">
+
+                    <div class="card shadow">
+
+                        <div class="card-body p-4">
+
+                            <h3 th:text="${r.clase.nombre}">
+                            </h3>
+
+                            <p class="text-muted"
+                               th:text="${r.clase.descripcion}">
+                            </p>
+
+                            <hr/>
+
+                            <p>
+
+                                <strong th:text="#{reserva.instructor}">
+                                    Instructor
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${r.clase.instructor}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <strong th:text="#{reserva.fecha}">
+                                    Fecha
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${#temporals.format(
+                                      r.clase.fecha,
+                                      'dd/MM/yyyy')}">
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <strong th:text="#{reserva.hora}">
+                                    Hora
+                                </strong>
+
+                                <strong>:</strong>
+
+                                <span th:text="${#temporals.format(
+                                      r.clase.hora,
+                                      'HH:mm')}">
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                        <div class="card-footer
+                             bg-white
+                             border-0">
+
+                            <a th:href="@{/reserva/cancelar/{id}(id=${r.idReserva})}"
+                               class="btn
+                               btn-outline-danger
+                               w-100"
+                               th:onclick="'return confirm(\'' + #{reserva.confirmarCancelar} + '\');'"
+                               th:text="#{reserva.cancelar}">
+
+                                Cancelar Reserva
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

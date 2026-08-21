@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:replace="~{general/fragmentos :: head}">
     </head>
@@ -19,14 +20,13 @@
 
                     <div class="col-lg-7">
 
-                        <h1>
-
+                        <h1 th:text="#{index.hero.titulo}">
                             Entrena Inteligente.
                             Vive Saludable.
-
                         </h1>
 
-                        <p class="mt-4">
+                        <p class="mt-4"
+                           th:text="#{index.hero.descripcion}">
 
                             Diseña tus propias rutinas, descubre nuevos ejercicios
                             y lleva un seguimiento de tu progreso físico desde
@@ -39,14 +39,22 @@
                             <a th:href="@{/ejercicio/listado}"
                                class="btn btn-warning btn-lg me-3">
 
-                                Explorar Ejercicios
+                                <i class="fas fa-dumbbell me-1"></i>
+
+                                <span th:text="#{index.hero.ejercicios}">
+                                    Explorar Ejercicios
+                                </span>
 
                             </a>
 
                             <a th:href="@{/rutina/listado}"
                                class="btn btn-outline-light btn-lg">
 
-                                Mis Rutinas
+                                <i class="fas fa-list-check me-1"></i>
+
+                                <span th:text="#{index.hero.rutinas}">
+                                    Mis Rutinas
+                                </span>
 
                             </a>
 
@@ -58,41 +66,239 @@
 
             </div>
 
-            <!-- Servicios -->
+
+            <!-- Funcionalidades principales -->
 
             <div class="mt-5">
 
-                <h2 class="titulo text-center mb-4">
+                <h2 class="titulo text-center mb-4"
+                    th:text="#{index.funciones.titulo}">
 
                     ¿Qué puedes hacer en FIDNESS?
 
                 </h2>
 
-                <div class="row">
+                <div class="row g-4">
+
+                    <!-- Ejercicios -->
 
                     <div class="col-md-4">
 
-                        <div class="card shadow h-100">
+                        <a th:href="@{/ejercicio/listado}"
+                           class="text-decoration-none text-dark">
 
-                            <img
-                                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700"
-                                class="card-img-top"
-                                style="height:220px;object-fit:cover;">
+                            <div class="card shadow h-100">
 
-                            <div class="card-body">
+                                <img
+                                    src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700"
+                                    class="card-img-top"
+                                    style="height:220px;object-fit:cover;"
+                                    alt="Ejercicios">
 
-                                <h4>
+                                <div class="card-body">
 
-                                    Ejercicios
+                                    <h4 class="text-primary">
 
+                                        <i class="fas fa-dumbbell me-1"></i>
+
+                                        <span th:text="#{index.ejercicios.titulo}">
+                                            Ejercicios
+                                        </span>
+
+                                    </h4>
+
+                                    <p th:text="#{index.ejercicios.descripcion}">
+
+                                        Consulta un catálogo completo de ejercicios
+                                        organizados por grupo muscular, nivel y tipo
+                                        de entrenamiento.
+
+                                    </p>
+
+                                    <span class="text-primary fw-bold">
+
+                                        <span th:text="#{index.ejercicios.boton}">
+                                            Explorar catálogo
+                                        </span>
+
+                                        <i class="fas fa-arrow-right ms-1"></i>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Rutinas -->
+
+                    <div class="col-md-4">
+
+                        <a th:href="@{/rutina/listado}"
+                           class="text-decoration-none text-dark">
+
+                            <div class="card shadow h-100">
+
+                                <img
+                                    src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700"
+                                    class="card-img-top"
+                                    style="height:220px;object-fit:cover;"
+                                    alt="Rutinas">
+
+                                <div class="card-body">
+
+                                    <h4 class="text-success">
+
+                                        <i class="fas fa-list-check me-1"></i>
+
+                                        <span th:text="#{index.rutinas.titulo}">
+                                            Rutinas
+                                        </span>
+
+                                    </h4>
+
+                                    <p th:text="#{index.rutinas.descripcion}">
+
+                                        Organiza tus entrenamientos y crea planes
+                                        personalizados según tus objetivos.
+
+                                    </p>
+
+                                    <span class="text-success fw-bold">
+
+                                        <span th:text="#{index.rutinas.boton}">
+                                            Ver mis rutinas
+                                        </span>
+
+                                        <i class="fas fa-arrow-right ms-1"></i>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Progreso -->
+
+                    <div class="col-md-4">
+
+                        <a th:href="@{/progreso/listado}"
+                           class="text-decoration-none text-dark">
+
+                            <div class="card shadow h-100">
+
+                                <img
+                                    src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=700"
+                                    class="card-img-top"
+                                    style="height:220px;object-fit:cover;"
+                                    alt="Progreso">
+
+                                <div class="card-body">
+
+                                    <h4 class="text-warning">
+
+                                        <i class="fas fa-chart-line me-1"></i>
+
+                                        <span th:text="#{index.progreso.titulo}">
+                                            Progreso
+                                        </span>
+
+                                    </h4>
+
+                                    <p th:text="#{index.progreso.descripcion}">
+
+                                        Lleva un seguimiento de tu evolución y mantén
+                                        la motivación para alcanzar tus metas.
+
+                                    </p>
+
+                                    <span class="text-warning fw-bold">
+
+                                        <span th:text="#{index.progreso.boton}">
+                                            Ver mi progreso
+                                        </span>
+
+                                        <i class="fas fa-arrow-right ms-1"></i>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Experiencia FIDNESS -->
+
+            <div class="mt-5">
+
+                <h2 class="titulo text-center mb-2"
+                    th:text="#{index.experiencia.titulo}">
+
+                    Tu experiencia FIDNESS
+
+                </h2>
+
+                <p class="text-muted text-center mb-4"
+                   th:text="#{index.experiencia.descripcion}">
+
+                    Todo lo que necesitas para organizar y mejorar
+                    tu entrenamiento en un solo lugar.
+
+                </p>
+
+                <div class="row g-4">
+
+
+                    <!-- Membresías -->
+
+                    <div class="col-md-4">
+
+                        <div class="card shadow text-center h-100">
+
+                            <div class="card-body p-4">
+
+                                <i class="fas fa-id-card
+                                   fa-3x
+                                   text-primary
+                                   mb-3">
+                                </i>
+
+                                <h4 th:text="#{index.membresias.titulo}">
+                                    Membresías
                                 </h4>
 
-                                <p>
+                                <p class="text-muted"
+                                   th:text="#{index.membresias.descripcion}">
 
-                                    Consulta un catálogo completo de ejercicios
-                                    organizados por grupo muscular y nivel.
+                                    Consulta los planes disponibles,
+                                    sus precios y beneficios.
 
                                 </p>
+
+                                <a th:href="@{/membresia/listado}"
+                                   class="btn btn-outline-primary"
+                                   th:text="#{index.membresias.boton}">
+
+                                    Ver Membresías
+
+                                </a>
 
                             </div>
 
@@ -100,29 +306,40 @@
 
                     </div>
 
+
+                    <!-- Clases -->
+
                     <div class="col-md-4">
 
-                        <div class="card shadow h-100">
+                        <div class="card shadow text-center h-100">
 
-                            <img
-                                src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700"
-                                class="card-img-top"
-                                style="height:220px;object-fit:cover;">
+                            <div class="card-body p-4">
 
-                            <div class="card-body">
+                                <i class="fas fa-calendar-check
+                                   fa-3x
+                                   text-success
+                                   mb-3">
+                                </i>
 
-                                <h4>
-
-                                    Rutinas
-
+                                <h4 th:text="#{index.clases.titulo}">
+                                    Clases Grupales
                                 </h4>
 
-                                <p>
+                                <p class="text-muted"
+                                   th:text="#{index.clases.descripcion}">
 
-                                    Organiza tus entrenamientos y crea planes
-                                    personalizados según tus objetivos.
+                                    Consulta las próximas clases
+                                    y reserva tu espacio.
 
                                 </p>
+
+                                <a th:href="@{/clase/listado}"
+                                   class="btn btn-outline-success"
+                                   th:text="#{index.clases.boton}">
+
+                                    Explorar Clases
+
+                                </a>
 
                             </div>
 
@@ -130,29 +347,60 @@
 
                     </div>
 
+
+                    <!-- Perfil -->
+
                     <div class="col-md-4">
 
-                        <div class="card shadow h-100">
+                        <div class="card shadow text-center h-100">
 
-                            <img
-                                src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=700"
-                                class="card-img-top"
-                                style="height:220px;object-fit:cover;">
+                            <div class="card-body p-4">
 
-                            <div class="card-body">
+                                <i class="fas fa-user
+                                   fa-3x
+                                   text-warning
+                                   mb-3">
+                                </i>
 
-                                <h4>
-
-                                    Progreso
-
+                                <h4 th:text="#{index.perfil.titulo}">
+                                    Mi Perfil
                                 </h4>
 
-                                <p>
+                                <p class="text-muted"
+                                   sec:authorize="isAuthenticated()"
+                                   th:text="#{index.perfil.autenticado}">
 
-                                    Lleva un seguimiento de tu evolución y mantén la
-                                    motivación para alcanzar tus metas.
+                                    Mantén actualizada tu información
+                                    personal y fotografía.
 
                                 </p>
+
+                                <p class="text-muted"
+                                   sec:authorize="isAnonymous()"
+                                   th:text="#{index.perfil.anonimo}">
+
+                                    Inicia sesión para acceder a tu
+                                    perfil y funciones personalizadas.
+
+                                </p>
+
+                                <a th:href="@{/perfil}"
+                                   sec:authorize="isAuthenticated()"
+                                   class="btn btn-outline-warning"
+                                   th:text="#{index.perfil.boton}">
+
+                                    Ver mi Perfil
+
+                                </a>
+
+                                <a th:href="@{/login}"
+                                   sec:authorize="isAnonymous()"
+                                   class="btn btn-outline-warning"
+                                   th:text="#{index.perfil.login}">
+
+                                    Iniciar Sesión
+
+                                </a>
 
                             </div>
 
@@ -164,72 +412,119 @@
 
             </div>
 
-            <!-- Estadísticas -->
 
-            <div class="mt-5">
+            <!-- Beneficios FIDNESS -->
 
-                <h2 class="titulo text-center mb-4">
+            <div class="card shadow mt-5">
 
-                    Información del Sistema
+                <div class="card-body p-5">
 
-                </h2>
+                    <div class="text-center mb-4">
 
-                <div class="row">
+                        <h2 class="titulo"
+                            th:text="#{index.beneficios.titulo}">
 
-                    <div class="col-md-4">
+                            Todo en un solo lugar
 
-                        <div class="card shadow text-center p-4">
+                        </h2>
 
-                            <h1 class="text-primary"
-                                th:text="${#lists.size(ejercicios)}">
+                        <p class="text-muted"
+                           th:text="#{index.beneficios.descripcion}">
 
-                            </h1>
+                            FIDNESS reúne las herramientas necesarias
+                            para organizar tu entrenamiento y mantener
+                            un seguimiento constante de tus objetivos.
 
-                            <h5>
-
-                                Ejercicios Disponibles
-
-                            </h5>
-
-                        </div>
+                        </p>
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="row g-4 text-center">
 
-                        <div class="card shadow text-center p-4">
+                        <div class="col-md-4">
 
-                            <h1 class="text-success">
+                            <div class="p-3">
 
-                                5
+                                <i class="fas fa-sliders
+                                   fa-3x
+                                   text-primary
+                                   mb-3">
+                                </i>
 
-                            </h1>
+                                <h4 th:text="#{index.personalizado.titulo}">
 
-                            <h5>
+                                    Entrenamiento Personalizado
 
-                                Rutinas Iniciales
+                                </h4>
 
-                            </h5>
+                                <p class="text-muted mb-0"
+                                   th:text="#{index.personalizado.descripcion}">
+
+                                    Crea rutinas según tu nivel,
+                                    objetivos y ejercicios preferidos.
+
+                                </p>
+
+                            </div>
 
                         </div>
 
-                    </div>
 
-                    <div class="col-md-4">
+                        <div class="col-md-4">
 
-                        <div class="card shadow text-center p-4">
+                            <div class="p-3">
 
-                            <h1 class="text-warning">
+                                <i class="fas fa-chart-line
+                                   fa-3x
+                                   text-success
+                                   mb-3">
+                                </i>
 
-                                24/7
+                                <h4 th:text="#{index.seguimiento.titulo}">
 
-                            </h1>
+                                    Seguimiento Constante
 
-                            <h5>
+                                </h4>
 
-                                Disponible
+                                <p class="text-muted mb-0"
+                                   th:text="#{index.seguimiento.descripcion}">
 
-                            </h5>
+                                    Registra tus avances y consulta
+                                    cómo evoluciona tu progreso físico.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="p-3">
+
+                                <i class="fas fa-shield-halved
+                                   fa-3x
+                                   text-warning
+                                   mb-3">
+                                </i>
+
+                                <h4 th:text="#{index.seguridad.titulo}">
+
+                                    Cuenta Segura
+
+                                </h4>
+
+                                <p class="text-muted mb-0"
+                                   th:text="#{index.seguridad.descripcion}">
+
+                                    Tu cuenta cuenta con activación por
+                                    correo, recuperación de contraseña
+                                    y acceso personalizado.
+
+                                </p>
+
+                            </div>
 
                         </div>
 

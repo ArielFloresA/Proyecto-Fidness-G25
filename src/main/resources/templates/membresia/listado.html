@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="text-center mb-5">
+
+                <h1 class="titulo"
+                    th:text="#{membresia.listado.titulo}">
+                    Membresías FIDNESS
+                </h1>
+
+                <p class="text-muted fs-5"
+                   th:text="#{membresia.listado.descripcion}">
+                    Conoce nuestros planes y encuentra
+                    la opción que mejor se adapte a ti.
+                </p>
+
+            </div>
+
+            <div th:if="${membresias == null
+                 or membresias.empty}"
+                 class="alert alert-info"
+                 th:text="#{membresia.listado.sinResultados}">
+
+                Actualmente no hay membresías disponibles.
+
+            </div>
+
+            <div class="row g-4
+                 justify-content-center">
+
+                <div class="col-md-6 col-lg-4"
+                     th:each="m : ${membresias}">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center">
+
+                                <div class="mb-3"
+                                     style="font-size:55px;">
+
+                                    <i class="fas
+                                       fa-dumbbell
+                                       text-success">
+                                    </i>
+
+                                </div>
+
+                                <h3 class="fw-bold"
+                                    th:text="${m.nombre}">
+                                </h3>
+
+                                <p class="text-muted"
+                                   th:text="${m.descripcion}">
+                                </p>
+
+                            </div>
+
+                            <hr/>
+
+                            <div class="text-center my-4">
+
+                                <span class="fs-5">
+                                    ₡
+                                </span>
+
+                                <span class="display-5
+                                      fw-bold
+                                      text-success"
+                                      th:text="${#numbers.formatDecimal(
+                                      m.precio,
+                                      0,
+                                      'COMMA',
+                                      0,
+                                      'POINT')}">
+                                </span>
+
+                                <div class="text-muted">
+
+                                    <span th:text="#{membresia.por}">
+                                        por
+                                    </span>
+
+                                    <span th:text="${m.duracionMeses}">
+                                    </span>
+
+                                    <span th:if="${m.duracionMeses == 1}"
+                                          th:text="#{membresia.mes}">
+                                        mes
+                                    </span>
+
+                                    <span th:unless="${m.duracionMeses == 1}"
+                                          th:text="#{membresia.meses}">
+                                        meses
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <h5 class="mb-3">
+
+                                <i class="fas
+                                   fa-circle-check
+                                   text-success
+                                   me-2">
+                                </i>
+
+                                <span th:text="#{membresia.beneficios}">
+                                    Beneficios
+                                </span>
+
+                            </h5>
+
+                            <p class="text-muted"
+                               th:text="${m.beneficios}">
+                            </p>
+
+                        </div>
+
+                        <div class="card-footer
+                             bg-white
+                             border-0
+                             text-center
+                             pb-4">
+
+                            <span class="badge
+                                  bg-success
+                                  fs-6
+                                  px-4
+                                  py-2"
+                                  th:text="#{membresia.disponible}">
+
+                                Plan disponible
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="text-center mt-5">
+
+                <a th:href="@{/}"
+                   class="btn btn-outline-secondary">
+
+                    <i class="fas
+                       fa-arrow-left
+                       me-1">
+                    </i>
+
+                    <span th:text="#{membresia.volver}">
+                        Volver al inicio
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>

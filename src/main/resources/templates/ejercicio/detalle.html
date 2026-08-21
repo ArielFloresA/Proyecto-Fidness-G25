@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <div class="container py-5">
+
+            <div class="card shadow-lg overflow-hidden">
+
+                <div class="row g-0">
+
+                    <div class="col-lg-5">
+
+                        <img th:src="${ejercicio.imagen}"
+                             class="w-100 h-100"
+                             style="
+                             min-height:500px;
+                             object-fit:cover;
+                             "
+                             th:alt="#{ejercicio.titulo}"/>
+
+                    </div>
+
+                    <div class="col-lg-7">
+
+                        <div class="card-body p-5">
+
+                            <a th:href="@{/ejercicio/listado}"
+                               class="btn btn-outline-secondary
+                               btn-sm mb-4">
+
+                                <i class="fas fa-arrow-left me-1"></i>
+
+                                <span th:text="#{ejercicio.volverCatalogo}">
+                                    Volver al catálogo
+                                </span>
+
+                            </a>
+
+                            <h1 class="titulo mb-3"
+                                th:text="${ejercicio.nombre}">
+                                Ejercicio
+                            </h1>
+
+                            <div class="mb-4">
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Pecho'}"
+                                      th:text="#{ejercicio.grupo.pecho}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Espalda'}"
+                                      th:text="#{ejercicio.grupo.espalda}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Piernas'}"
+                                      th:text="#{ejercicio.grupo.piernas}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Bíceps'}"
+                                      th:text="#{ejercicio.grupo.biceps}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Tríceps'}"
+                                      th:text="#{ejercicio.grupo.triceps}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Hombros'}"
+                                      th:text="#{ejercicio.grupo.hombros}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Abdomen'}"
+                                      th:text="#{ejercicio.grupo.abdomen}">
+                                </span>
+
+                                <span class="badge bg-primary me-1"
+                                      th:if="${ejercicio.grupoMuscular == 'Cardio'}"
+                                      th:text="#{ejercicio.grupo.cardio}">
+                                </span>
+
+
+                                <span class="badge bg-success me-1"
+                                      th:if="${ejercicio.nivel == 'Principiante'}"
+                                      th:text="#{ejercicio.nivel.principiante}">
+                                </span>
+
+                                <span class="badge bg-success me-1"
+                                      th:if="${ejercicio.nivel == 'Intermedio'}"
+                                      th:text="#{ejercicio.nivel.intermedio}">
+                                </span>
+
+                                <span class="badge bg-success me-1"
+                                      th:if="${ejercicio.nivel == 'Avanzado'}"
+                                      th:text="#{ejercicio.nivel.avanzado}">
+                                </span>
+
+
+                                <span class="badge bg-dark"
+                                      th:if="${ejercicio.tipoEntrenamiento == 'Fuerza'}"
+                                      th:text="#{ejercicio.tipo.fuerza}">
+                                </span>
+
+                                <span class="badge bg-dark"
+                                      th:if="${ejercicio.tipoEntrenamiento == 'Cardio'}"
+                                      th:text="#{ejercicio.tipo.cardio}">
+                                </span>
+
+                                <span class="badge bg-dark"
+                                      th:if="${ejercicio.tipoEntrenamiento == 'Core'}"
+                                      th:text="#{ejercicio.tipo.core}">
+                                </span>
+
+                            </div>
+
+                            <h5 th:text="#{ejercicio.descripcion}">
+                                Descripción
+                            </h5>
+
+                            <p class="text-muted"
+                               th:text="${ejercicio.descripcion}">
+                            </p>
+
+                            <hr/>
+
+                            <h5>
+
+                                <i class="fas fa-list-ol
+                                   text-primary me-2"></i>
+
+                                <span th:text="#{ejercicio.instrucciones}">
+                                    Instrucciones
+                                </span>
+
+                            </h5>
+
+                            <p class="text-muted"
+                               th:text="${ejercicio.instrucciones}">
+                            </p>
+
+                            <hr/>
+
+                            <h5>
+
+                                <i class="fas fa-circle-info
+                                   text-success me-2"></i>
+
+                                <span th:text="#{ejercicio.recomendaciones}">
+                                    Recomendaciones
+                                </span>
+
+                            </h5>
+
+                            <p class="text-muted"
+                               th:text="${ejercicio.recomendaciones}">
+                            </p>
+
+                            <hr/>
+
+                            <div class="row text-center py-3">
+
+                                <div class="col-6">
+
+                                    <h2 class="text-primary"
+                                        th:text="${ejercicio.series}">
+                                    </h2>
+
+                                    <span th:text="#{ejercicio.series}">
+                                        Series
+                                    </span>
+
+                                </div>
+
+                                <div class="col-6">
+
+                                    <h2 class="text-success"
+                                        th:text="${ejercicio.repeticiones}">
+                                    </h2>
+
+                                    <span th:text="#{ejercicio.repeticiones}">
+                                        Repeticiones
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="d-grid mt-4"
+                                 sec:authorize="isAuthenticated()">
+
+                                <a th:href="@{/ejercicio/agregarRutina/{id}(id=${ejercicio.idEjercicio})}"
+                                   class="btn btn-success btn-lg">
+
+                                    <i class="fas fa-plus me-2"></i>
+
+                                    <span th:text="#{ejercicio.agregarMiRutina}">
+                                        Agregar a mi rutina
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+
+</html>
